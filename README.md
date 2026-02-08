@@ -41,7 +41,7 @@ Uma **calculadora de taxas e lucro** profissional para vendedores da plataforma 
 
 ### Online
 ```bash
-git clone https://github.com/seu-usuario/calculadora-ggmax.git
+git clone https://github.com/muriloatavares/calculadora-de-taxas-ggmax.git
 cd calculadora-ggmax
 # Abra index.html no navegador
 ```
@@ -156,3 +156,4 @@ MIT License © 2026
 Desenvolvido para vendedores GGMAX
 
 **Se ajudou, deixe uma star!** ⭐
+
