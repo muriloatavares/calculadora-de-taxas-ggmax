@@ -118,32 +118,6 @@ Edite em `assets/css/style.css`:
 | Safari | ✅ |
 | Edge | ✅ |
 
----
-
-## 🚀 Deploy
-
-### GitHub Pages
-```bash
-# Push para main/master
-# Ative em Settings → Pages
-# URL: https://github.com/muriloatavares/calculadora-de-taxas-ggmax
-```
-
-### Netlify / Vercel
-- Conecte seu repositório
-- Deploy automático
-
----
-
-## 🤝 Contribuindo
-
-1. Fork o repositório
-2. Crie uma branch: `git checkout -b feature/nova-feature`
-3. Commit: `git commit -m "Add: descrição"`
-4. Push: `git push origin feature/nova-feature`
-5. Abra um Pull Request
-
----
 
 ## 📝 Licença
 
@@ -156,4 +130,5 @@ MIT License © 2026
 Desenvolvido para vendedores GGMAX
 
 **Se ajudou, deixe uma star!** ⭐
+
 
