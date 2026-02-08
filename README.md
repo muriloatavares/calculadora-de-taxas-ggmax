@@ -126,7 +126,7 @@ Edite em `assets/css/style.css`:
 ```bash
 # Push para main/master
 # Ative em Settings → Pages
-# URL: https://seu-usuario.github.io/calculadora-ggmax
+# URL: https://github.com/muriloatavares/calculadora-de-taxas-ggmax
 ```
 
 ### Netlify / Vercel
@@ -147,7 +147,7 @@ Edite em `assets/css/style.css`:
 
 ## 📝 Licença
 
-MIT License © 2025
+MIT License © 2026
 
 ---
 
