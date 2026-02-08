@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#121215">
+    <meta name="description" content="Calculadora de Taxas e Lucro para GGMAX - Ferramenta para Vendedores">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    <link rel="manifest" href="./manifest.json">
+    <link rel="icon" type="image/x-icon" href="./assets/img/favicon.ico">
+    <link id="dynamic-favicon" rel="icon" type="image/png" href="./assets/img/favicon.png">
+    <link rel="shortcut icon" href="./assets/img/favicon.ico">
+    <link rel="apple-touch-icon" href="./assets/img/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    
+    <title>Calculadora GGMAX</title>
+</head>
+<body class="dark">
+    
+    <div id="skeleton" class="skeleton-overlay">
+        <div class="loader"></div>
+    </div>
+
+    <main class="container" role="main">
+        <header>
+            <div class="header-controls">
+                <button id="themeToggle" class="icon-btn" type="button" aria-label="Alternar tema" onclick="const isDark = document.body.classList.contains('dark'); document.body.classList.remove('dark', 'light'); document.body.classList.add(isDark ? 'light' : 'dark'); localStorage.setItem('ggmaxTheme', isDark ? 'light' : 'dark');">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="pointer-events: none;">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+            <img src="./assets/img/logo.png" alt="GGMAX" class="app-logo">
+            <div class="app-title">CALCULADORA DE TAXAS</div>
+        </header>
+
+        <section class="mode-section">
+            <div class="mode-toggle">
+                <button id="btnModeSell" class="toggle-btn active" type="button">Quero Vender</button>
+                <button id="btnModeReceive" class="toggle-btn" type="button">Quero Receber</button>
+            </div>
+        </section>
+
+        <section class="inputs-section">
+            <div class="input-row">
+                <div>
+                    <label for="inpValue">Valor Unit. <span class="info-tooltip" title="Preço do anúncio ou meta de recebimento">?</span></label>
+                    <div class="input-wrapper money">
+                        <span class="currency-symbol">R$</span>
+                        <input type="text" id="inpValue" placeholder="0,00" inputmode="decimal" autocomplete="off">
+                    </div>
+                </div>
+                <div>
+                    <label for="inpQty">Qtd <span class="info-tooltip" title="Multiplicador para vendas em lote">?</span></label>
+                    <input type="number" id="inpQty" value="1" min="1" inputmode="numeric" pattern="[0-9]*">
+                </div>
+            </div>
+
+            <div class="input-row" style="grid-template-columns: 1fr;">
+                <div>
+                    <label for="inpCost">Custo Unitário (Opcional)</label>
+                    <div class="input-wrapper money">
+                        <span class="currency-symbol">R$</span>
+                        <input type="text" id="inpCost" placeholder="0,00" inputmode="decimal">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="plans-section">
+            <label>Selecione o Plano</label>
+            <div class="plans-container">
+                <label class="plan-option" style="--active-color: #e4e4e7;">
+                    <input type="radio" name="plan" value="9.99">
+                    <div class="plan-card">
+                        <svg class="plan-icon" viewBox="0 0 24 24"><path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3z"/></svg>
+                        <span class="plan-name">Prata</span>
+                        <span class="plan-tax">9,99%</span>
+                    </div>
+                </label>
+                <label class="plan-option" style="--active-color: #fbbf24;">
+                    <input type="radio" name="plan" value="11.99" checked>
+                    <div class="plan-card">
+                        <span class="badge-popular">POPULAR</span>
+                        <svg class="plan-icon" viewBox="0 0 24 24"><path d="M2 4l3 12h14l3-12-6 7-4-13-4 13-6-7zm3 16h14v2H5v-2z"/></svg>
+                        <span class="plan-name">Ouro</span>
+                        <span class="plan-tax">11,99%</span>
+                    </div>
+                </label>
+                <label class="plan-option" style="--active-color: #06b6d4;">
+                    <input type="radio" name="plan" value="12.99">
+                    <div class="plan-card">
+                        <svg class="plan-icon" viewBox="0 0 24 24"><path d="M6 2L3 8l9 14 9-14-3-6H6z"/></svg>
+                        <span class="plan-name">Diamante</span>
+                        <span class="plan-tax">12,99%</span>
+                    </div>
+                </label>
+            </div>
+        </section>
+
+        <section class="results-section">
+            <div class="results-box">
+                <div class="result-row">
+                    <span style="color:var(--text-muted)">Taxa da Plataforma (<span id="resTaxPerc">11,99%</span>)</span>
+                    <span style="color:var(--danger); font-weight:600;" id="resFee">R$ 0,00</span>
+                </div>
+                
+                <div class="result-row total">
+                    <span class="text-total-label" style="font-weight:600;">Receber Total</span>
+                    <div class="text-total-val">
+                        <span id="resTotal">R$ 0,00</span>
+                        <button class="icon-btn" id="btnCopy" type="button" aria-label="Copiar valor total" style="width:28px; height:28px; margin-left:8px; border:none; background:var(--bg-body);">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="progress-bar">
+                    <div class="bar-fill" id="barFee" style="width: 0%; background: var(--danger);" title="Taxa"></div>
+                    <div class="bar-fill" id="barCost" style="width: 0%; background: var(--cost-color);" title="Custo"></div>
+                    <div class="bar-fill" id="barProfit" style="width: 0%; background: var(--secondary);" title="Lucro"></div>
+                </div>
+                
+                <div class="result-row" style="margin-top: 12px; margin-bottom: 0;">
+                    <span style="color:var(--text-muted)">Lucro Líquido</span>
+                    <span style="font-weight:700;" id="resProfit">R$ 0,00</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="actions-section">
+            <div class="actions-grid">
+                <button class="btn btn-outline" type="button" id="btnOpenDeadlines">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                    Prazos
+                </button>
+                <button class="btn btn-outline" type="button" id="btnOpenTools">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                    Ferramentas
+                </button>
+            </div>
+            <button class="btn btn-primary" type="button" id="btnSaveHistory" style="margin-top: 10px;">Salvar no Histórico</button>
+            <button id="btnClear" class="btn btn-ghost" type="button">Limpar Dados</button>
+        </section>
+
+        <section class="history-section">
+            <div style="display:flex; justify-content:space-between; margin: 15px 0;">
+                <span style="font-size:0.8rem; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Últimos Cálculos</span>
+                <button id="btnClearHistory" type="button" style="background:none; border:none; color:var(--danger); font-size:0.75rem; cursor:pointer;">Limpar</button>
+            </div>
+            <div id="historyList" style="display:flex; flex-direction:column; gap:8px;"></div>
+        </section>
+
+        <footer style="margin-top: 2rem; text-align: center; font-size: 0.7rem; color: var(--text-muted);">
+            Projeto comunitário open-source. Sem vínculo oficial com a GGMAX.
+        </footer>
+    </main>
+
+    <dialog id="modalDeadlines" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" type="button" aria-label="Fechar modal">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+            <h2>Prazos de Liberação</h2>
+            <div style="margin-bottom: 1.5rem;">
+                <label for="selCategory">Categoria</label>
+                <select id="selCategory" style="width:100%; height:48px; border-radius:8px; border:1px solid var(--border-color); background: var(--bg-input); color: var(--text-main); padding: 0 10px;">
+                    <option value="4">Itens, Moedas, Skins (4 dias)</option>
+                    <option value="7">Contas, Serviços (7 dias)</option>
+                </select>
+            </div>
+            <label style="display:flex; gap:12px; align-items:center; margin-bottom:1.5rem; cursor:pointer;">
+                <div style="position:relative; width:24px; height:24px;">
+                    <input type="checkbox" id="chkAccelerated" class="custom-checkbox-input">
+                    <div class="custom-checkbox-design"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+                </div>
+                <div>
+                    <strong style="display:block; color:var(--text-main);">Liberação Acelerada</strong>
+                    <small style="color:var(--text-muted);">Com avaliação positiva do cliente.</small>
+                </div>
+            </label>
+            <div style="background: rgba(0, 123, 255, 0.1); padding: 1.5rem; border-radius: 12px; text-align: center; border: 1px solid rgba(0, 123, 255, 0.2);">
+                <div style="color: var(--primary); font-size: 1.5rem; font-weight: 700;" id="txtDeadlineDate">--/--/----</div>
+                <small style="color: var(--text-muted);" id="txtDeadlineDays">-- dias</small>
+            </div>
+        </div>
+    </dialog>
+
+    <dialog id="modalTools" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" type="button" aria-label="Fechar modal">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+            <h2>Ferramentas Extras</h2>
+            
+            <div class="tool-section">
+                <div class="tool-title">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                    Split de Sócios
+                </div>
+                <div style="display:flex; gap:10px; align-items:center;">
+                    <input type="number" id="inpSplitUser" placeholder="Você %" value="50" style="text-align:center;">
+                    <span style="color:var(--text-muted);">vs</span>
+                    <input type="number" id="inpSplitPartner" placeholder="Sócio %" value="50" style="text-align:center;" readonly>
+                </div>
+                <div class="split-result">
+                    <span>Você: <span id="resSplitUser" style="color:var(--secondary)">R$ 0,00</span></span>
+                    <span>Sócio: <span id="resSplitPartner" style="color:var(--text-muted)">R$ 0,00</span></span>
+                </div>
+            </div>
+
+            <div class="tool-section">
+                <div class="tool-title">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                    Taxa de Saque
+                </div>
+                <div class="input-wrapper money">
+                    <span class="currency-symbol">R$</span>
+                    <input type="text" id="inpWithdrawFee" placeholder="0,00" inputmode="decimal">
+                </div>
+                <small style="color:var(--text-muted); display:block; margin-top:5px;">Este valor será deduzido do Lucro Líquido final.</small>
+            </div>
+        </div>
+    </dialog>
+
+    <canvas id="shareCanvas" width="600" height="480" style="display:none;"></canvas>
+
+    <script src="./assets/js/app.js" defer></script>
+</body>
+</html>
