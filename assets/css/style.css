@@ -46,6 +46,7 @@ html.dark {
 
 ::-webkit-scrollbar {
     width: 5px;
+    height: 6px;
 }
 
 ::-webkit-scrollbar-track {
