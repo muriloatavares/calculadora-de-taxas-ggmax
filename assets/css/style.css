@@ -1,7 +1,7 @@
 :root, html.light {
     --bg-body: #e8f0fe;
-    --bg-card: #ffffff;
-    --bg-input: #ffffff;
+    --bg-card: rgba(255, 255, 255, 0.8);
+    --bg-input: rgba(255, 255, 255, 0.6);
     --text-main: #1a1a2e;
     --text-muted: #555770;
     --border-color: rgba(4, 4, 5, 0.12);
@@ -25,8 +25,8 @@
 
 html.dark {
     --bg-body: #0a1628;
-    --bg-card: #111d33;
-    --bg-input: #0d1a2d;
+    --bg-card: rgba(17, 29, 51, 0.65);
+    --bg-input: rgba(13, 26, 45, 0.5);
     --text-main: #f0f4fc;
     --text-muted: #8ea4c4;
     --border-color: rgba(120, 170, 255, 0.15);
@@ -87,6 +87,8 @@ html.light body {
     max-width: 480px;
     margin: auto;
     background-color: var(--bg-card);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     padding: 2rem;
     border-radius: var(--radius);
     border: 1px solid var(--border-color);
@@ -334,22 +336,37 @@ select:focus {
 }
 
 .plan-option input:checked + .plan-card {
-    background: rgba(255, 255, 255, 0.03);
-    border-color: var(--active-color);
-    box-shadow: inset 0 0 0 1px var(--active-color);
+    border-color: var(--active-color, var(--primary));
+    background: color-mix(in srgb, var(--active-color, var(--primary)) 10%, transparent);
+    box-shadow: 0 0 20px color-mix(in srgb, var(--active-color, var(--primary)) 25%, transparent),
+                inset 0 0 0 1px var(--active-color, var(--primary));
 }
 
 .plan-option input:checked + .plan-card .plan-icon {
-    fill: var(--active-color);
+    fill: var(--active-color, var(--primary));
+    filter: drop-shadow(0 0 8px var(--active-color, var(--primary)));
 }
 
 .plan-option input:checked + .plan-card .plan-name {
-    color: var(--active-color);
+    color: var(--active-color, var(--primary));
 }
 
-.plan-option input[value="11.99"]:checked + .plan-card {
-    border-color: #f19304;
-    background: rgba(241, 147, 4, 0.05);
+/* Base colors for plans */
+.plan-option[data-plan="prata"] { --plan-color: #adb5bd; }
+.plan-option[data-plan="ouro"] { --plan-color: #f19304; }
+.plan-option[data-plan="diamante"] { --plan-color: var(--diamond-cyan); }
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--active-color, var(--primary));
+    box-shadow: 0 0 20px var(--active-color, var(--primary));
+    z-index: 5;
+    transition: background 0.4s ease, box-shadow 0.4s ease;
 }
 
 .badge-popular {
@@ -580,6 +597,8 @@ select:focus {
 
 .modal-content {
     background: var(--bg-card);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     width: calc(100vw - 40px);
     max-width: 420px;
     margin: auto;
@@ -1064,6 +1083,66 @@ select:focus {
             padding-left: max(10px, env(safe-area-inset-left));
             padding-right: max(10px, env(safe-area-inset-right));
         }
+    }
+}
+
+/* Bottom Nav (Mobile) */
+.bottom-nav {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 70px;
+    background: var(--bg-card);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid var(--border-color);
+    z-index: 1000;
+    padding-bottom: env(safe-area-inset-bottom);
+    justify-content: space-around;
+    align-items: center;
+}
+
+.nav-btn {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    gap: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.nav-btn svg {
+    stroke: var(--text-muted);
+}
+
+.nav-btn:active {
+    transform: scale(0.9);
+    color: var(--active-color, var(--primary));
+}
+
+.nav-btn:active svg {
+    stroke: var(--active-color, var(--primary));
+}
+
+@media (max-width: 480px) {
+    .bottom-nav {
+        display: flex;
+    }
+    
+    .actions-grid {
+        display: none; /* Hide old desktop buttons on mobile */
+    }
+    
+    body {
+        padding-bottom: calc(85px + env(safe-area-inset-bottom));
     }
 }
 

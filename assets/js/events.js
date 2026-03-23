@@ -61,6 +61,8 @@ window.GGMax.Events = {
         document.querySelectorAll('input[name="plan"]').forEach(function(radio) {
             radio.addEventListener('change', function(e) {
                 app.state.rate = parseFloat(e.target.value);
+                var plan = e.target.closest('.plan-option').getAttribute('data-plan');
+                UI.updateThemeColor(plan);
                 app.recalc();
             });
         });
@@ -128,6 +130,24 @@ window.GGMax.Events = {
         // --- Abrir modal Ferramentas ---
         if (UI.els.btnOpenTools) {
             UI.els.btnOpenTools.addEventListener('click', function() {
+                if (UI.els.modal.tools) {
+                    UI.els.modal.tools.showModal();
+                }
+            });
+        }
+
+        // --- Mobile Nav: Prazos ---
+        if (UI.els.btnOpenDeadlinesMobile) {
+            UI.els.btnOpenDeadlinesMobile.addEventListener('click', function() {
+                if (UI.els.modal.deadlines) {
+                    UI.els.modal.deadlines.showModal();
+                }
+            });
+        }
+
+        // --- Mobile Nav: Extras ---
+        if (UI.els.btnOpenToolsMobile) {
+            UI.els.btnOpenToolsMobile.addEventListener('click', function() {
                 if (UI.els.modal.tools) {
                     UI.els.modal.tools.showModal();
                 }

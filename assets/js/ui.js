@@ -50,7 +50,10 @@ window.GGMax.UI = {
             btnOpenDeadlines: document.getElementById('btnOpenDeadlines'),
             btnOpenTools: document.getElementById('btnOpenTools'),
             btnTheme: document.getElementById('themeToggle'),
-            historyList: document.getElementById('historyList')
+            historyList: document.getElementById('historyList'),
+            // Mobile Nav
+            btnOpenDeadlinesMobile: document.getElementById('btnOpenDeadlinesMobile'),
+            btnOpenToolsMobile: document.getElementById('btnOpenToolsMobile')
         };
     },
 
@@ -63,23 +66,94 @@ window.GGMax.UI = {
         var fmt = window.GGMax.Utils.formatCurrency;
 
         if (this.els.resFee) {
-            this.els.resFee.textContent = fmt(results.fee);
+            this.animateValue(this.els.resFee, results.fee, 400);
         }
         if (this.els.resTotal) {
-            this.els.resTotal.textContent = fmt(results.net);
-            this.els.resTotal.classList.remove('pulse-anim');
-            void this.els.resTotal.offsetWidth;
-            this.els.resTotal.classList.add('pulse-anim');
+            this.animateValue(this.els.resTotal, results.net, 500, true);
         }
         if (this.els.resProfit) {
-            this.els.resProfit.textContent = fmt(results.profit);
+            this.animateValue(this.els.resProfit, results.profit, 600);
             this.els.resProfit.style.color = results.profit < 0 ? 'var(--danger)' : 'var(--secondary)';
-            this.els.resProfit.classList.remove('pulse-anim');
-            void this.els.resProfit.offsetWidth;
-            this.els.resProfit.classList.add('pulse-anim');
+            
+            // Easter Egg: Confetti for high profit
+            if (results.profit >= 500) {
+                this.triggerConfetti();
+            }
         }
         if (this.els.resTaxPerc) {
             this.els.resTaxPerc.textContent = rate.toLocaleString('pt-BR') + '%';
+        }
+    },
+
+    /**
+     * Animação de números (Odômetro)
+     */
+    animateValue(el, end, duration, pulse) {
+        var start = parseFloat(el.getAttribute('data-val') || 0);
+        if (start === end) {
+            el.textContent = window.GGMax.Utils.formatCurrency(end);
+            return;
+        }
+
+        var range = end - start;
+        var startTime = null;
+
+        var step = function(timestamp) {
+            if (!startTime) startTime = timestamp;
+            var progress = Math.min((timestamp - startTime) / duration, 1);
+            var current = start + (range * progress);
+            el.textContent = window.GGMax.Utils.formatCurrency(current);
+            if (progress < 1) {
+                window.requestAnimationFrame(step);
+            } else {
+                el.setAttribute('data-val', end);
+                if (pulse) {
+                    el.classList.remove('pulse-anim');
+                    void el.offsetWidth;
+                    el.classList.add('pulse-anim');
+                }
+            }
+        };
+        window.requestAnimationFrame(step);
+    },
+
+    /**
+     * Altera a cor principal baseada no plano
+     */
+    updateThemeColor(plan) {
+        var colors = {
+            'prata': '#adb5bd',
+            'ouro': '#f19304',
+            'diamante': '#06b6d4'
+        };
+        var color = colors[plan] || '#007bff';
+        document.documentElement.style.setProperty('--active-color', color);
+    },
+
+    /**
+     * Micro-interação de Confetes
+     */
+    triggerConfetti() {
+        if (this._confettiActive) return;
+        this._confettiActive = true;
+        this.showToast('🎉 Lucro épico detectado!', 'success');
+        
+        // Simples efeito de cores piscando no topo
+        var bar = document.querySelector('.container::before');
+        if (bar) {
+            var originalColor = getComputedStyle(document.documentElement).getPropertyValue('--active-color');
+            var colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', originalColor];
+            var i = 0;
+            var interval = setInterval(function() {
+                document.documentElement.style.setProperty('--active-color', colors[i]);
+                i++;
+                if (i >= colors.length) {
+                    clearInterval(interval);
+                    this._confettiActive = false;
+                }
+            }.bind(this), 100);
+        } else {
+            this._confettiActive = false;
         }
     },
 

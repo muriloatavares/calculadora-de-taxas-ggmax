@@ -31,6 +31,13 @@
             this.loadHistory();
             UI.loadTheme();
             this.updateDeadline();
+
+            // Sincroniza cor inicial do plano
+            var checkedPlan = document.querySelector('input[name="plan"]:checked');
+            if (checkedPlan) {
+                var plan = checkedPlan.closest('.plan-option').getAttribute('data-plan');
+                UI.updateThemeColor(plan);
+            }
         },
 
         /**
