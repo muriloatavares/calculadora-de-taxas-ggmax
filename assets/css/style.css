@@ -1048,10 +1048,22 @@ select:focus {
     }
 }
 
-/* Safe area for notched devices */
-@supports (padding: env(safe-area-inset-bottom)) {
+/* Safe area for notched devices & Dynamic Island */
+@supports (padding: max(0px)) {
     body {
-        padding-bottom: calc(20px + env(safe-area-inset-bottom));
+        padding-top: max(2rem, env(safe-area-inset-top));
+        padding-bottom: max(2rem, env(safe-area-inset-bottom));
+        padding-left: max(1rem, env(safe-area-inset-left));
+        padding-right: max(1rem, env(safe-area-inset-right));
+    }
+    
+    @media (max-width: 480px) {
+        body {
+            padding-top: max(10px, env(safe-area-inset-top));
+            padding-bottom: max(10px, env(safe-area-inset-bottom));
+            padding-left: max(10px, env(safe-area-inset-left));
+            padding-right: max(10px, env(safe-area-inset-right));
+        }
     }
 }
 
