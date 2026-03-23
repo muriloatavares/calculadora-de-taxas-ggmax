@@ -97,6 +97,10 @@
             if (hist.length > 5) hist.pop();
             localStorage.setItem('ggmaxhist', JSON.stringify(hist));
             this.loadHistory();
+            
+            if (window.GGMax && window.GGMax.UI) {
+                window.GGMax.UI.showToast('Cálculo salvo no histórico!', 'success');
+            }
         },
 
         /**
@@ -113,6 +117,10 @@
         clearHistory: function() {
             localStorage.removeItem('ggmaxhist');
             this.loadHistory();
+            
+            if (window.GGMax && window.GGMax.UI) {
+                window.GGMax.UI.showToast('Histórico apagado.', 'warning');
+            }
         }
     };
 

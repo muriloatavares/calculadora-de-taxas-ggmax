@@ -25,6 +25,9 @@ Uma **calculadora de taxas e lucro** profissional para vendedores da plataforma 
 ### 🎨 Interface UI/UX Premium
 - **Novo Design em Gradiente Azul**: Um visual moderno e agradável, adaptado perfeitamente para Dark/Light modes.
 - **Modais Nativos `<dialog>`**: Prazos e ferramentas abrem com efeito de blur e são 100% centralizados (com correções avançadas para o Safari).
+- **Animações e UX Smooth**: Fade-ins em cascata (slide-up), _glow_ dinâmico ao focar no formulário e botões com clique realista (`scale`).
+- **Sincronização com o Sistema**: Auto-detecta se o seu dispositivo está no modo claro/escuro (`prefers-color-scheme`) e aplica o tema perfeitamente logo ao abrir.
+- **Notificações Toast**: Alertas modernos, flutuantes e não-bloqueantes (`Copiado com sucesso!`, etc.) que não travam a sua tela.
 - **Responsividade Absoluta**: Mobile-first, otimizado para celulares (360px+), tablets e desktops.
 - **Tilt 3D**: Cards dos planos com efeito parallax responsivo.
 - **Cópia Rápida**: Copie o total líquido com um clique.

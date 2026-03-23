@@ -188,6 +188,7 @@ window.GGMax.UI = {
                     self.els.btnCopy.style.color = '';
                 }, 1000);
             }
+            self.showToast('Copiado com sucesso!', 'success');
         });
     },
 
@@ -219,11 +220,14 @@ window.GGMax.UI = {
     },
 
     /**
-     * Carrega tema salvo do localStorage.
+     * Carrega tema salvo do localStorage ou preferências do usuário.
      */
     loadTheme() {
         var savedTheme = localStorage.getItem('ggmaxTheme');
         var root = document.documentElement;
+        if (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+            savedTheme = 'light';
+        }
         root.classList.remove('dark', 'light');
         root.classList.add(savedTheme || 'dark');
     },
@@ -240,6 +244,42 @@ window.GGMax.UI = {
                 setTimeout(function() { sk.remove(); }, 400);
             }
         }, 500);
+    },
+
+    /**
+     * Exibe notificação no estilo Toast.
+     * @param {string} message - Mensagem do toast
+     * @param {string} type - 'success', 'warning' ou 'error'
+     */
+    showToast(message, type) {
+        if (!type) type = 'success';
+        var container = document.getElementById('toast-container');
+        if (!container) {
+            container = document.createElement('div');
+            container.id = 'toast-container';
+            container.className = 'toast-container';
+            document.body.appendChild(container);
+        }
+
+        var toast = document.createElement('div');
+        toast.className = 'toast toast-' + type;
+        
+        var iconStr = type === 'success' ? '✓' : (type === 'error' ? '!' : '⚠️');
+        
+        toast.innerHTML = '<span class="toast-icon">' + iconStr + '</span><span class="toast-text">' + message + '</span>';
+        
+        container.appendChild(toast);
+        
+        // Reflow for transition
+        void toast.offsetWidth;
+        toast.classList.add('show');
+        
+        setTimeout(function() {
+            toast.classList.remove('show');
+            setTimeout(function() {
+                if (toast.parentNode) toast.remove();
+            }, 300);
+        }, 3000);
     },
 
     /**
