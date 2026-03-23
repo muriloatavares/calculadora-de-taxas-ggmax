@@ -26,6 +26,8 @@ Uma **calculadora de taxas e lucro** profissional para vendedores da plataforma 
 - **Novo Design em Gradiente Azul**: Um visual moderno e agradável, adaptado perfeitamente para Dark/Light modes.
 - **Modais Nativos `<dialog>`**: Prazos e ferramentas abrem com efeito de blur e são 100% centralizados (com correções avançadas para o Safari).
 - **Animações e UX Smooth**: Fade-ins em cascata (slide-up), _glow_ dinâmico ao focar no formulário e botões com clique realista (`scale`).
+- **Suporte Nativo a iPhones (iOS)**: Edge-to-edge hardware support para **Dynamic Island** e _Notches_, prevenção do bug de Auto-Zoom do Safari em inputs, e altura dinâmica (`100dvh`) para não conflitar com a barra de endereços do iOS.
+- **Otimizações Touch**: Rolagem com momentum macio, touch-action em zero atrasos (sem lag de 300ms) e barra de scroll horizontal visível no carrossel.
 - **Sincronização com o Sistema**: Auto-detecta se o seu dispositivo está no modo claro/escuro (`prefers-color-scheme`) e aplica o tema perfeitamente logo ao abrir.
 - **Notificações Toast**: Alertas modernos, flutuantes e não-bloqueantes (`Copiado com sucesso!`, etc.) que não travam a sua tela.
 - **Responsividade Absoluta**: Mobile-first, otimizado para celulares (360px+), tablets e desktops.
