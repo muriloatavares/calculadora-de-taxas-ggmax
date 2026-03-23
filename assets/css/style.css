@@ -41,6 +41,7 @@ html.dark {
     box-sizing: border-box;
     -webkit-tap-highlight-color: transparent;
     font-family: var(--font-family);
+    scroll-behavior: smooth;
 }
 
 ::-webkit-scrollbar {
@@ -66,6 +67,9 @@ body {
     min-height: 100vh;
     padding: 2rem 1rem;
     transition: background 0.3s ease, color 0.3s ease;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    touch-action: manipulation;
 }
 
 html.dark body {
@@ -891,10 +895,13 @@ select:focus {
     .plans-container {
         display: flex;
         overflow-x: auto;
+        padding-top: 15px;
+        margin-top: -15px;
         padding-bottom: 15px;
         scroll-snap-type: x mandatory;
         margin-right: -1.25rem;
         padding-right: 1.25rem;
+        padding-left: 2px;
         -webkit-overflow-scrolling: touch;
     }
 
