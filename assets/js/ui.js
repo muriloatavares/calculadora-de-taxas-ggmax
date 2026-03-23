@@ -1,32 +1,44 @@
 /**
- * ui.js — Manipulação de DOM e renderização
- * Responsável por atualizar a interface com dados calculados.
+ * ui.js — Módulo de Interface e Renderização (DOM)
+ * Este arquivo é o "maestro" visual da aplicação. Ele traduz os números 
+ * do Calculator.js em elementos visuais, animações e interações para o usuário.
  */
 
 window.GGMax = window.GGMax || {};
 
 window.GGMax.UI = {
 
-    /** Cache de referências de elementos DOM */
+    /** 
+     * els — Cache de Referências do DOM
+     * Armazenamos aqui todos os "IDs" do HTML para não precisar buscá-los 
+     * toda hora (o que deixaria o app lento).
+     */
     els: {},
 
     /**
-     * Coleta e armazena referências de elementos DOM.
+     * cacheDOM — Busca e guarda os elementos do HTML na memória.
      */
     cacheDOM() {
         this.els = {
+            // Campos de entrada (inputs)
             val: document.getElementById('inpValue'),
             qty: document.getElementById('inpQty'),
             cost: document.getElementById('inpCost'),
+            
+            // Campos de resultados
             resFee: document.getElementById('resFee'),
             resTotal: document.getElementById('resTotal'),
             resProfit: document.getElementById('resProfit'),
             resTaxPerc: document.getElementById('resTaxPerc'),
+            
+            // Barras de progresso visual
             bars: {
                 fee: document.getElementById('barFee'),
                 cost: document.getElementById('barCost'),
                 profit: document.getElementById('barProfit')
             },
+            
+            // Modais e seus controles internos
             modal: {
                 deadlines: document.getElementById('modalDeadlines'),
                 tools: document.getElementById('modalTools'),
@@ -35,6 +47,8 @@ window.GGMax.UI = {
                 date: document.getElementById('txtDeadlineDate'),
                 days: document.getElementById('txtDeadlineDays')
             },
+            
+            // Ferramentas extras (Split e Saque)
             tools: {
                 splitUser: document.getElementById('inpSplitUser'),
                 splitPartner: document.getElementById('inpSplitPartner'),
@@ -42,6 +56,8 @@ window.GGMax.UI = {
                 resPartner: document.getElementById('resSplitPartner'),
                 withdraw: document.getElementById('inpWithdrawFee')
             },
+            
+            // Botões e utilitários
             canvas: document.getElementById('shareCanvas'),
             btnCopy: document.getElementById('btnCopy'),
             btnSaveHistory: document.getElementById('btnSaveHistory'),
@@ -51,42 +67,57 @@ window.GGMax.UI = {
             btnOpenTools: document.getElementById('btnOpenTools'),
             btnTheme: document.getElementById('themeToggle'),
             historyList: document.getElementById('historyList'),
-            // Mobile Nav
+            
+            // Navegação de rodapé (Mobile)
             btnOpenDeadlinesMobile: document.getElementById('btnOpenDeadlinesMobile'),
             btnOpenToolsMobile: document.getElementById('btnOpenToolsMobile')
         };
     },
 
     /**
-     * Atualiza os displays de resultados na interface.
-     * @param {Object} results — resultado do Calculator.calculate()
-     * @param {number} rate — taxa atual do plano
+     * updateResults — Atualiza os números principais na tela.
+     * 
+     * @param {Object} results — O objeto vindo do Calculator.calculate().
+     * @param {number} rate — A porcentagem atual da taxa.
      */
     updateResults(results, rate) {
         var fmt = window.GGMax.Utils.formatCurrency;
 
+        // Atualiza a Taxa com animação suave
         if (this.els.resFee) {
             this.animateValue(this.els.resFee, results.fee, 400);
         }
+        
+        // Atualiza o Valor Total (Receber) com animação e pulso
         if (this.els.resTotal) {
             this.animateValue(this.els.resTotal, results.net, 500, true);
         }
+        
+        // Atualiza o Lucro Líquido e muda a cor para vermelho se for prejuízo
         if (this.els.resProfit) {
             this.animateValue(this.els.resProfit, results.profit, 600);
             this.els.resProfit.style.color = results.profit < 0 ? 'var(--danger)' : 'var(--secondary)';
             
-            // Easter Egg: Confetti for high profit
+            // Easter Egg: Solta "confetes" visuais se o lucro for alto (>= 500)
             if (results.profit >= 500) {
                 this.triggerConfetti();
             }
         }
+        
+        // Exibe a porcentagem do plano selecionado
         if (this.els.resTaxPerc) {
             this.els.resTaxPerc.textContent = rate.toLocaleString('pt-BR') + '%';
         }
     },
 
     /**
-     * Animação de números (Odômetro)
+     * animateValue — Efeito de Odômetro (Contagem Progressiva).
+     * Faz os números subirem ou descerem suavemente em vez de mudar de uma vez.
+     * 
+     * @param {HTMLElement} el — O elemento de texto que será animado.
+     * @param {number} end — O valor final desejado.
+     * @param {number} duration — Quanto tempo a animação dura (em milissegundos).
+     * @param {boolean} pulse — Se deve disparar um efeito de brilho ao terminar.
      */
     animateValue(el, end, duration, pulse) {
         var start = parseFloat(el.getAttribute('data-val') || 0);
@@ -103,13 +134,14 @@ window.GGMax.UI = {
             var progress = Math.min((timestamp - startTime) / duration, 1);
             var current = start + (range * progress);
             el.textContent = window.GGMax.Utils.formatCurrency(current);
+            
             if (progress < 1) {
                 window.requestAnimationFrame(step);
             } else {
                 el.setAttribute('data-val', end);
                 if (pulse) {
                     el.classList.remove('pulse-anim');
-                    void el.offsetWidth;
+                    void el.offsetWidth; // Força o navegador a reiniciar a animação CSS
                     el.classList.add('pulse-anim');
                 }
             }
@@ -118,7 +150,10 @@ window.GGMax.UI = {
     },
 
     /**
-     * Altera a cor principal baseada no plano
+     * updateThemeColor — Sincroniza a cor do sotaque (accent color).
+     * Muda a variável CSS --active-color baseado no plano (Prata, Ouro, Diamante).
+     * 
+     * @param {string} plan — O tipo do plano.
      */
     updateThemeColor(plan) {
         var colors = {
@@ -131,14 +166,14 @@ window.GGMax.UI = {
     },
 
     /**
-     * Micro-interação de Confetes
+     * triggerConfetti — Easter Egg de cores vibrantes.
+     * Pisca a barra superior do app quando o lucro é excelente.
      */
     triggerConfetti() {
         if (this._confettiActive) return;
         this._confettiActive = true;
         this.showToast('🎉 Lucro épico detectado!', 'success');
         
-        // Simples efeito de cores piscando no topo
         var bar = document.querySelector('.container::before');
         if (bar) {
             var originalColor = getComputedStyle(document.documentElement).getPropertyValue('--active-color');
@@ -158,8 +193,7 @@ window.GGMax.UI = {
     },
 
     /**
-     * Atualiza as barras de progresso visual.
-     * @param {Object} results — resultado do Calculator.calculate()
+     * updateBars — Atualiza o preenchimento das barras coloridas de progresso.
      */
     updateBars(results) {
         if (results.gross > 0 && this.els.bars.fee) {
@@ -170,8 +204,7 @@ window.GGMax.UI = {
     },
 
     /**
-     * Atualiza display de split de sócios.
-     * @param {Object} splitResult — resultado do Calculator.calculateSplit()
+     * updateSplit — Exibe a divisão de lucro entre sócios no modal.
      */
     updateSplit(splitResult) {
         var fmt = window.GGMax.Utils.formatCurrency;
@@ -182,8 +215,7 @@ window.GGMax.UI = {
     },
 
     /**
-     * Atualiza display de prazo de liberação.
-     * @param {Object} deadlineResult — resultado do Calculator.calculateDeadline()
+     * updateDeadlineDisplay — Exibe a data de liberação do dinheiro.
      */
     updateDeadlineDisplay(deadlineResult) {
         if (this.els.modal.date) {
@@ -195,7 +227,7 @@ window.GGMax.UI = {
     },
 
     /**
-     * Reseta todos os displays para valores iniciais.
+     * resetDisplays — Volta os textos de resultados para o zero (R$ 0,00).
      */
     resetDisplays() {
         if (this.els.resFee) this.els.resFee.textContent = 'R$ 0,00';
@@ -209,7 +241,7 @@ window.GGMax.UI = {
     },
 
     /**
-     * Limpa o formulário e reseta os inputs.
+     * resetForm — Limpa os campos de digitação.
      */
     resetForm() {
         if (this.els.val) this.els.val.value = '';
@@ -218,8 +250,7 @@ window.GGMax.UI = {
     },
 
     /**
-     * Efeito 3D de tilt nos plan-cards.
-     * @param {MouseEvent} e
+     * tiltCard — Efeito visual de inclinação 3D nos cards.
      */
     tiltCard(e) {
         var card = e.currentTarget;
@@ -232,15 +263,14 @@ window.GGMax.UI = {
     },
 
     /**
-     * Remove efeito tilt de um card.
-     * @param {HTMLElement} card
+     * resetTilt — Remove o efeito 3D quando o mouse sai do card.
      */
     resetTilt(card) {
         card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
     },
 
     /**
-     * Atualiza favicon dinâmico.
+     * updateFavicon — Atualiza o ícone da aba do navegador.
      */
     updateFavicon() {
         var favicon = document.getElementById('dynamic-favicon');
@@ -250,7 +280,7 @@ window.GGMax.UI = {
     },
 
     /**
-     * Copia valor total para a área de transferência.
+     * copyToClipboard — Copia o valor final para o CTRL+C.
      */
     copyToClipboard() {
         var self = this;
@@ -262,13 +292,12 @@ window.GGMax.UI = {
                     self.els.btnCopy.style.color = '';
                 }, 1000);
             }
-            self.showToast('Copiado com sucesso!', 'success');
+            self.showToast('Valor copiado!', 'success');
         });
     },
 
     /**
-     * Alterna entre temas dark/light.
-     * @param {number} profit — lucro atual para atualizar favicon
+     * toggleTheme — Troca entre Modo Escuro e Modo Claro.
      */
     toggleTheme(profit) {
         var root = document.documentElement;
@@ -284,7 +313,7 @@ window.GGMax.UI = {
             localStorage.setItem('ggmaxTheme', 'dark');
         }
 
-        // Força repaint caso necessário
+        // Truque visual para garantir que as cores mudem sem falhas no browser
         document.body.style.opacity = '0.99';
         setTimeout(function() {
             document.body.style.opacity = '1';
@@ -294,11 +323,12 @@ window.GGMax.UI = {
     },
 
     /**
-     * Carrega tema salvo do localStorage ou preferências do usuário.
+     * loadTheme — Recupera o tema que o usuário escolheu na última visita.
      */
     loadTheme() {
         var savedTheme = localStorage.getItem('ggmaxTheme');
         var root = document.documentElement;
+        // Se for a primeira vez, tenta ler a preferência do Sistema Operacional
         if (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
             savedTheme = 'light';
         }
@@ -307,7 +337,7 @@ window.GGMax.UI = {
     },
 
     /**
-     * Esconde o skeleton loader com animação.
+     * hideSkeleton — Esconde a tela de carregamento inicial.
      */
     hideSkeleton() {
         setTimeout(function() {
@@ -321,9 +351,10 @@ window.GGMax.UI = {
     },
 
     /**
-     * Exibe notificação no estilo Toast.
-     * @param {string} message - Mensagem do toast
-     * @param {string} type - 'success', 'warning' ou 'error'
+     * showToast — Exibe uma notificação flutuante e temporária.
+     * 
+     * @param {string} message — O texto que aparece na mensagem.
+     * @param {string} type — 'success', 'warning' ou 'error' (muda a cor da bolinha).
      */
     showToast(message, type) {
         if (!type) type = 'success';
@@ -344,8 +375,7 @@ window.GGMax.UI = {
         
         container.appendChild(toast);
         
-        // Reflow for transition
-        void toast.offsetWidth;
+        void toast.offsetWidth; // Reflow for animation
         toast.classList.add('show');
         
         setTimeout(function() {
@@ -357,8 +387,7 @@ window.GGMax.UI = {
     },
 
     /**
-     * Renderiza a lista de histórico.
-     * @param {Array} items — itens do histórico
+     * renderHistory — Desenha a lista de últimos cálculos na tela.
      */
     renderHistory(items) {
         if (!this.els.historyList) return;
@@ -366,14 +395,14 @@ window.GGMax.UI = {
         this.els.historyList.innerHTML = '';
 
         if (items.length === 0) {
-            this.els.historyList.innerHTML = '<div class="history-empty">Sem histórico recente.</div>';
+            this.els.historyList.innerHTML = '<div class="history-empty">Nenhum cálculo salvo ainda.</div>';
             return;
         }
 
         items.forEach(function(item) {
             var div = document.createElement('div');
             div.className = 'history-item';
-            div.innerHTML = '<span>' + item.date + '</span> <span>' + item.profit + '</span>';
+            div.innerHTML = '<span>' + item.date + '</span> <strong>' + item.profit + '</strong>';
             this.els.historyList.appendChild(div);
         }.bind(this));
     }

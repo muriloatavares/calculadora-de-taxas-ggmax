@@ -1,6 +1,7 @@
 /**
- * events.js — Centralização de eventos e interações
- * Registra todos os event listeners da aplicação.
+ * events.js — Centralizador de Eventos e Interações
+ * Este arquivo "ouve" tudo o que o usuário faz (cliques, digitação, seleção)
+ * e chama as funções corretas do App ou da UI para responder.
  */
 
 window.GGMax = window.GGMax || {};
@@ -8,14 +9,17 @@ window.GGMax = window.GGMax || {};
 window.GGMax.Events = {
 
     /**
-     * Registra todos os event listeners da aplicação.
-     * @param {Object} app — referência ao orquestrador (GGMax.App)
+     * bindAll — Registra todos os ouvintes de eventos de uma só vez.
+     * 
+     * @param {Object} app — Referência ao objeto principal (GGMax.App).
      */
     bindAll(app) {
         var UI = window.GGMax.UI;
         var Utils = window.GGMax.Utils;
 
-        // --- Inputs de valor, quantidade e custo ---
+        // --- Inputs principais (Valor, Quantidade e Custo) ---
+        // Sempre que o usuário digita, o app lê o valor e recalcula tudo.
+        
         if (UI.els.val) {
             UI.els.val.addEventListener('input', function(e) {
                 app.state.value = Utils.parseInput(e.target.value);
@@ -37,7 +41,7 @@ window.GGMax.Events = {
             });
         }
 
-        // --- Taxa de saque ---
+        // --- Taxa de Saque (Modal de Ferramentas) ---
         if (UI.els.tools.withdraw) {
             UI.els.tools.withdraw.addEventListener('input', function(e) {
                 app.state.withdrawFee = Utils.parseInput(e.target.value);
@@ -45,11 +49,12 @@ window.GGMax.Events = {
             });
         }
 
-        // --- Split de sócios ---
+        // --- Divisão de Sócios (Split) ---
+        // Quando muda a porcentagem de um sócio, o app ajusta a do outro automaticamente.
         if (UI.els.tools.splitUser) {
             UI.els.tools.splitUser.addEventListener('input', function(e) {
                 var val = parseInt(e.target.value) || 0;
-                if (val > 100) val = 100;
+                if (val > 100) val = 100; // Impede passar de 100%
                 if (UI.els.tools.splitPartner) {
                     UI.els.tools.splitPartner.value = 100 - val;
                 }
@@ -57,24 +62,25 @@ window.GGMax.Events = {
             });
         }
 
-        // --- Seleção de plano ---
+        // --- Seleção de Plano (Prata, Ouro, Diamante) ---
         document.querySelectorAll('input[name="plan"]').forEach(function(radio) {
             radio.addEventListener('change', function(e) {
                 app.state.rate = parseFloat(e.target.value);
+                // Busca o nome do plano (data-plan) para mudar a cor do app
                 var plan = e.target.closest('.plan-option').getAttribute('data-plan');
                 UI.updateThemeColor(plan);
                 app.recalc();
             });
         });
 
-        // --- Botão Copiar ---
+        // --- Copiar para Link ---
         if (UI.els.btnCopy) {
             UI.els.btnCopy.addEventListener('click', function() {
                 UI.copyToClipboard();
             });
         }
 
-        // --- Efeito tilt nos cards ---
+        // --- Efeito "Tilt" 3D nos cards de plano ---
         document.querySelectorAll('.plan-card').forEach(function(card) {
             card.addEventListener('mousemove', function(e) {
                 UI.tiltCard(e);
@@ -84,7 +90,7 @@ window.GGMax.Events = {
             });
         });
 
-        // --- Modal: Prazos ---
+        // --- Modal: Atualização de Prazos ---
         if (UI.els.modal.cat) {
             UI.els.modal.cat.addEventListener('change', function() {
                 app.updateDeadline();
@@ -97,64 +103,53 @@ window.GGMax.Events = {
             });
         }
 
-        // --- Botão limpar formulário ---
+        // --- Botões de Limpeza ---
         if (UI.els.btnClear) {
             UI.els.btnClear.addEventListener('click', function() {
                 app.resetForm();
             });
         }
 
-        // --- Botão salvar no histórico ---
+        // --- Histórico ---
         if (UI.els.btnSaveHistory) {
             UI.els.btnSaveHistory.addEventListener('click', function() {
                 app.addToHistory();
             });
         }
 
-        // --- Botão limpar histórico ---
         if (UI.els.btnClearHistory) {
             UI.els.btnClearHistory.addEventListener('click', function() {
                 app.clearHistory();
             });
         }
 
-        // --- Abrir modal Prazos ---
+        // --- Abrir Modais (Prazos e Ferramentas) ---
         if (UI.els.btnOpenDeadlines) {
             UI.els.btnOpenDeadlines.addEventListener('click', function() {
-                if (UI.els.modal.deadlines) {
-                    UI.els.modal.deadlines.showModal();
-                }
+                if (UI.els.modal.deadlines) UI.els.modal.deadlines.showModal();
             });
         }
 
-        // --- Abrir modal Ferramentas ---
         if (UI.els.btnOpenTools) {
             UI.els.btnOpenTools.addEventListener('click', function() {
-                if (UI.els.modal.tools) {
-                    UI.els.modal.tools.showModal();
-                }
+                if (UI.els.modal.tools) UI.els.modal.tools.showModal();
             });
         }
 
-        // --- Mobile Nav: Prazos ---
+        // --- Navegação Fixa Inferior (Versão Mobile) ---
         if (UI.els.btnOpenDeadlinesMobile) {
             UI.els.btnOpenDeadlinesMobile.addEventListener('click', function() {
-                if (UI.els.modal.deadlines) {
-                    UI.els.modal.deadlines.showModal();
-                }
+                if (UI.els.modal.deadlines) UI.els.modal.deadlines.showModal();
             });
         }
 
-        // --- Mobile Nav: Extras ---
         if (UI.els.btnOpenToolsMobile) {
             UI.els.btnOpenToolsMobile.addEventListener('click', function() {
-                if (UI.els.modal.tools) {
-                    UI.els.modal.tools.showModal();
-                }
+                if (UI.els.modal.tools) UI.els.modal.tools.showModal();
             });
         }
 
-        // --- Fechar modais ---
+        // --- Fechamento de Modais ---
         document.querySelectorAll('.modal-close').forEach(function(btn) {
             btn.addEventListener('click', function(e) {
                 var dialog = e.target.closest('dialog');
@@ -162,7 +157,7 @@ window.GGMax.Events = {
             });
         });
 
-        // --- Formatação monetária em tempo real ---
+        // --- Máscara de Real nos inputs monetários ---
         ['inpValue', 'inpCost', 'inpWithdrawFee'].forEach(function(id) {
             var el = document.getElementById(id);
             if (el) {
@@ -170,8 +165,7 @@ window.GGMax.Events = {
             }
         });
 
-
-        // --- Botão tema ---
+        // --- Alternador de Tema (Dark/Light) ---
         if (UI.els.btnTheme) {
             UI.els.btnTheme.addEventListener('click', function() {
                 UI.toggleTheme(app.state.profit);

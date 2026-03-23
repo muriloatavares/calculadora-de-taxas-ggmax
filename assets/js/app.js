@@ -1,38 +1,43 @@
 /**
- * app.js — Ponto de entrada e orquestrador da aplicação
- * Mantém o estado global e coordena os módulos.
+ * app.js — Arquivo Maestro (Orquestrador)
+ * Este é o ponto de entrada da aplicação. Ele mantém o "Estado Global"
+ * (os valores atuais) e coordena as chamadas entre Cálculos, UI e Eventos.
  */
 
 (function() {
     'use strict';
 
+    // Importamos os submódulos para facilitar o acesso
     var Calculator = window.GGMax.Calculator;
     var UI = window.GGMax.UI;
     var Events = window.GGMax.Events;
 
     var App = {
-        /** Estado global da aplicação */
+        /** 
+         * state — O "Cérebro" do App
+         * Aqui ficam guardados todos os números que o usuário digitou.
+         */
         state: {
-            value: 0,
-            qty: 1,
-            cost: 0,
-            rate: 11.99,
-            withdrawFee: 0,
-            profit: 0
+            value: 0,        // Valor unitário do item
+            qty: 1,          // Quantidade de itens
+            cost: 0,         // Custo de compra (gasto do vendedor)
+            rate: 11.99,     // % da taxa do plano escolhido
+            withdrawFee: 0,  // Valor fixo de saque (R$)
+            profit: 0        // Lucro final calculado
         },
 
         /**
-         * Inicializa a aplicação.
+         * init — A função que "liga" o aplicativo quando a página carrega.
          */
         init: function() {
-            UI.hideSkeleton();
-            UI.cacheDOM();
-            Events.bindAll(this);
-            this.loadHistory();
-            UI.loadTheme();
-            this.updateDeadline();
+            UI.hideSkeleton();      // Remove a tela de carregamento
+            UI.cacheDOM();          // Busca os IDs do HTML
+            Events.bindAll(this);   // Registra os cliques e digitações
+            this.loadHistory();     // Carrega os últimos cálculos salvos no celular
+            UI.loadTheme();         // Aplica Dark Mode se o usuário preferir
+            this.updateDeadline();  // Inicializa o cálculo de datas
 
-            // Sincroniza cor inicial do plano
+            // Sincroniza a cor visual baseada no plano que já começa marcado
             var checkedPlan = document.querySelector('input[name="plan"]:checked');
             if (checkedPlan) {
                 var plan = checkedPlan.closest('.plan-option').getAttribute('data-plan');
@@ -41,11 +46,14 @@
         },
 
         /**
-         * Recalcula e atualiza a interface.
+         * recalc — Função que refaz toda a matemática e atualiza a tela.
+         * É chamada sempre que qualquer número muda.
          */
         recalc: function() {
+            // Chama o motor de cálculos matemático
             var results = Calculator.calculate(this.state);
 
+            // Se o valor for zero, limpa as barras visuais
             if (this.state.value === 0) {
                 UI.resetDisplays();
                 UI.updateFavicon();
@@ -54,10 +62,11 @@
 
             this.state.profit = results.profit;
 
+            // Atualiza os textos e as barras de progresso na interface
             UI.updateResults(results, this.state.rate);
             UI.updateBars(results);
 
-            // Atualiza split se o modal de ferramentas estiver ativo
+            // Se o usuário estiver com o modal de ferramentas aberto, atualiza a divisão de sócios
             var userPerc = parseInt(UI.els.tools.splitUser ? UI.els.tools.splitUser.value : 50) || 0;
             var splitResult = Calculator.calculateSplit(results.profit, userPerc);
             UI.updateSplit(splitResult);
@@ -66,7 +75,7 @@
         },
 
         /**
-         * Atualiza exibição de prazos de liberação.
+         * updateDeadline — Atualiza o cálculo de data de liberação do dinheiro.
          */
         updateDeadline: function() {
             if (!UI.els.modal.cat || !UI.els.modal.acc) return;
@@ -77,7 +86,7 @@
         },
 
         /**
-         * Limpa formulário e recalcula.
+         * resetForm — Limpa tudo e volta ao estado inicial.
          */
         resetForm: function() {
             this.state.value = 0;
@@ -88,7 +97,7 @@
         },
 
         /**
-         * Salva cálculo atual no histórico.
+         * addToHistory — Salva o cálculo atual no LocalStorage do navegador.
          */
         addToHistory: function() {
             if (this.state.value === 0) return;
@@ -100,18 +109,18 @@
             };
 
             var hist = JSON.parse(localStorage.getItem('ggmaxhist') || '[]');
-            hist.unshift(item);
-            if (hist.length > 5) hist.pop();
+            hist.unshift(item); // Adiciona no início da lista
+            if (hist.length > 5) hist.pop(); // Mantém apenas os 5 últimos
             localStorage.setItem('ggmaxhist', JSON.stringify(hist));
             this.loadHistory();
             
             if (window.GGMax && window.GGMax.UI) {
-                window.GGMax.UI.showToast('Cálculo salvo no histórico!', 'success');
+                window.GGMax.UI.showToast('Cálculo salvo!', 'success');
             }
         },
 
         /**
-         * Carrega histórico do localStorage e renderiza.
+         * loadHistory — Lê o histórico salvo e manda a UI desenhar na tela.
          */
         loadHistory: function() {
             var items = JSON.parse(localStorage.getItem('ggmaxhist') || '[]');
@@ -119,19 +128,19 @@
         },
 
         /**
-         * Limpa todo o histórico.
+         * clearHistory — Apaga todos os cálculos salvos.
          */
         clearHistory: function() {
             localStorage.removeItem('ggmaxhist');
             this.loadHistory();
             
             if (window.GGMax && window.GGMax.UI) {
-                window.GGMax.UI.showToast('Histórico apagado.', 'warning');
+                window.GGMax.UI.showToast('Histórico removido.', 'warning');
             }
         }
     };
 
-    // Inicialização
+    // Ponto de Partida: Garante que o App só inicie quando o HTML estiver pronto.
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', function() {
             App.init();

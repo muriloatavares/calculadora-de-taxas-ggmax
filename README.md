@@ -1,146 +1,82 @@
-# 📱 Calculadora GGMAX
+# 📱 Calculadora GGMAX - Premium PWA
 
-Uma **calculadora de taxas e lucro** profissional para vendedores da plataforma GGMAX. Ferramenta web progressiva (PWA) que funciona online e offline.
+Uma **calculadora de taxas e lucro** de elite, projetada especificamente para vendedores da plataforma GGMAX. Esta ferramenta não é apenas funcional; ela oferece uma experiência visual premium através de **Glassmorphism**, animações fluidas e suporte total a hardware Apple moderno.
 
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Status](https://img.shields.io/badge/status-active-brightgreen)
-![Version](https://img.shields.io/badge/version-1.0.0-blue)
+![Version](https://img.shields.io/badge/version-1.1.0-blue)
+![PWA](https://img.shields.io/badge/PWA-Online/Offline-orange)
 
 ---
 
-## ✨ Funcionalidades
+## ✨ Diferenciais de Elite
 
-### 💰 Cálculos Avançados
-- **Modo Único Otimizado**: Calcula taxa e lucro líquido sobre o valor de venda (foco total em quem vende).
-- **3 Planos GGMAX**: Prata (9,99%), Ouro (11,99% - Popular), Diamante (12,99%)
-- **Custo Unitário**: Deduz custos de aquisição do seu lucro final
-- **Visualização Dinâmica em Barras**: Mostra a proporção gráfica de taxa, custo e lucro
+### 💰 Matemática de Precisão
+- **Modo Vendedor Otimizado**: Foco total no lucro líquido real.
+- **3 Planos GGMAX Atualizados**: Prata (9,99%), Ouro (11,99% - Popular), Diamante (12,99%).
+- **Custo & Taxa de Saque**: Dedução automática de custos de aquisição e taxas fixas de saque bancário.
+- **Efeito Odometer**: Valores de lucro e taxas aumentam e diminuem suavemente em tempo real.
 
-### 🛠️ Ferramentas Extras
-- **Split de Sócios**: Divida o lucro entre você e seu sócio (%)
-- **Taxa de Saque**: Deduza automaticamente taxas bancárias do lucro
-- **Prazos de Liberação**: Veja a data exata de recebimento (4 ou 7 dias, com aceleração)
-- **Histórico**: Últimos 5 cálculos salvos automaticamente
+### 🎨 Design & UI/UX "WOW"
+- **Glassmorphism Moderno**: Interface translúcida com `backdrop-filter` de 20px.
+- **Tintagem Dinâmica**: O aplicativo muda sua cor de destaque (Prata, Ouro, Ciano) instantaneamente de acordo com o plano selecionado.
+- **Easter Egg de Celebração**: Alcance lucros altos e seja surpreendido com uma explosão de confetes coloridos! 🎉
+- **Feedback Háptico Visual**: Notificações *Toast* modernas, flutuantes e animações de clique realista (`scale`).
 
-### 🎨 Interface UI/UX Premium
-- **Novo Design em Gradiente Azul**: Um visual moderno e agradável, adaptado perfeitamente para Dark/Light modes.
-- **Modais Nativos `<dialog>`**: Prazos e ferramentas abrem com efeito de blur e são 100% centralizados (com correções avançadas para o Safari).
-- **Animações e UX Smooth**: Fade-ins em cascata (slide-up), _glow_ dinâmico ao focar no formulário e botões com clique realista (`scale`).
-- **Suporte Nativo a iPhones (iOS)**: Edge-to-edge hardware support para **Dynamic Island** e _Notches_, prevenção do bug de Auto-Zoom do Safari em inputs, e altura dinâmica (`100dvh`) para não conflitar com a barra de endereços do iOS.
-- **Otimizações Touch**: Rolagem com momentum macio, touch-action em zero atrasos (sem lag de 300ms) e barra de scroll horizontal visível no carrossel.
-- **Sincronização com o Sistema**: Auto-detecta se o seu dispositivo está no modo claro/escuro (`prefers-color-scheme`) e aplica o tema perfeitamente logo ao abrir.
-- **Notificações Toast**: Alertas modernos, flutuantes e não-bloqueantes (`Copiado com sucesso!`, etc.) que não travam a sua tela.
-- **Responsividade Absoluta**: Mobile-first, otimizado para celulares (360px+), tablets e desktops.
-- **Tilt 3D**: Cards dos planos com efeito parallax responsivo.
-- **Cópia Rápida**: Copie o total líquido com um clique.
-
-### 📲 PWA (Progressive Web App)
-- Instale na tela inicial do celular (Android/iOS)
-- Funciona 100% offline
-- Ícone dinâmico que muda com o tema
+### 🍎 Otimização Apple (iPhone 16/17 Pro Max)
+- **Suporte a Dynamic Island & Notch**: Margens de segurança dinâmicas (`safe-area-inset`) para ocupar 100% da tela sem cobrir botões.
+- **Navegação Inferior Fixa**: Barra de atalhos móvel para uso confortável com uma mão.
+- **Prevenção de Bugs do Safari**: Zoom forçado em inputs desativado e altura real de tela (`100dvh`).
 
 ---
 
-## 🚀 Como Usar
+## 🛠️ Arquitetura & Manutenção
 
-### Online
-```bash
-git clone https://github.com/muriloatavares/calculadora-de-taxas-ggmax.git
-cd calculadora-ggmax
-# Abra index.html no navegador
-```
+O projeto é 100% **Vanilla JS (ES6+)**, sem frameworks pesados, garantindo carregamento instantâneo.
 
-### Instalar como App (Celular)
-1. Abra a calculadora no navegador
-2. Clique em "Compartilhar" → "Adicionar à tela inicial"
-3. Pronto! Acesse como um app nativo
+- **100% Comentado em PT-BR**: Todo o código-fonte (`.js`, `.css`, `.html`) possui documentação detalhada em português brasileiro, facilitando futuras modificações.
+- **Estrutura Modular**:
+    - `utils.js`: Formatação de moeda e máscaras de input.
+    - `calculator.js`: O "motor" matemático das taxas GGMAX.
+    - `ui.js`: Gerenciador de DOM, Temas e Animações de Elite.
+    - `events.js`: Centralizador de interações e listeners.
+    - `app.js`: Orquestrador de estado global e inicialização.
 
 ---
 
-## 📁 Arquitetura Modular (Refatorada)
+## 🚀 Como Instalar (PWA)
 
-O projeto foi refatorado para garantir máxima manutenibilidade, separando as responsabilidades sem a necessidade de bundlers (Vanilla JS):
+Esta ferramenta funciona como um aplicativo nativo no seu celular:
 
-```
-calculadora-ggmax/
-├── index.html
-├── manifest.json
-├── README.md
-└── assets/
-    ├── css/
-    │   └── style.css
-    ├── js/
-    │   ├── utils.js       # Funções auxiliares (formatação, conversão)
-    │   ├── calculator.js  # Regras de negócio e matemática
-    │   ├── ui.js          # Manipulação do DOM e renderização
-    │   ├── events.js      # Listeners e interações com o usuário
-    │   └── app.js         # Orquestrador principal (State/Init)
-    └── img/
-        ├── favicon.ico
-        ├── favicon.png
-        └── logo.png
-```
+### iOS (iPhone)
+1. Abra o site no **Safari**.
+2. Clique no ícone de **Compartilhar** (quadrado com seta pra cima).
+3. Role e escolha **"Adicionar à Tela de Início"**.
+
+### Android
+1. Abra no **Chrome**.
+2. Clique nos três pontinhos e selecione **"Instalar Aplicativo"**.
 
 ---
 
-## 🛠️ Stack Técnico
+## 📊 Exemplo de Fluxo Operacional
 
-- **HTML5** Semântico
-- **CSS3** Design tokens
-- **JavaScript ES6+** (sem dependências)
-- **localStorage** (histórico + preferências)
-- **PWA** Web Manifest
-
----
-
-## 📊 Exemplo de Cálculo
-
-| Item | Valor |
-|------|-------|
-| Valor Anúncio | R$ 100,00 |
-| Taxa GGMAX 11,99% | -R$ 11,99 |
-| **Receber Total** | **R$ 88,01** |
-| Custo (opcional) | -R$ 20,00 |
-| Taxa Saque (opcional) | -R$ 2,00 |
-| **Lucro Líquido** | **R$ 66,01** |
+| Etapa | Valor |
+|-------|-------|
+| Meta de Venda | R$ 1.500,00 |
+| Taxa GGMAX (Plano Ouro) | -R$ 179,85 |
+| Custo de Aquisição | -R$ 300,00 |
+| Taxa de Saque | -R$ 2,00 |
+| **Lucro Líquido Final** | **R$ 1.018,15** |
 
 ---
-
-## 🎨 Customização
-
-### Mudar Cores
-Edite em `assets/css/style.css`:
-
-```css
-:root {
-    --primary: #007bff;
-    --secondary: #28a745;
-    --danger: #dc3545;
-}
-```
-
----
-
-## 📱 Compatibilidade
-
-| Browser | Status |
-|---------|--------|
-| Chrome | ✅ |
-| Firefox | ✅ |
-| Safari | ✅ |
-| Edge | ✅ |
-
 
 ## 📝 Licença
 
-MIT License © 2026
+Publicado sob a Licença MIT. Sinta-se à vontade para fork e melhorar!
 
 ---
 
-## ⭐ Créditos
-
-Desenvolvido para vendedores GGMAX
-
-**Se ajudou, deixe uma star!** ⭐
+**Desenvolvido para a comunidade de vendedores GGMAX. ⭐ Deixe sua Star se te ajudou!**
 
 

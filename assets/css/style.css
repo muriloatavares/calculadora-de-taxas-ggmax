@@ -1,40 +1,53 @@
+/* 
+   -------------------------------------------------------------------
+   SISTEMA DE DESIGN & VARIÁVEIS (TOKENS)
+   Aqui definimos as cores, espaçamentos e desfoques que compõe o visual.
+   -------------------------------------------------------------------
+*/
 :root, html.light {
+    /* --- Cores de Fundo e Texto (Cura de Temas) --- */
     --bg-body: #e8f0fe;
-    --bg-card: rgba(255, 255, 255, 0.8);
-    --bg-input: rgba(255, 255, 255, 0.6);
-    --text-main: #1a1a2e;
-    --text-muted: #555770;
-    --border-color: rgba(4, 4, 5, 0.12);
+    --bg-card: rgba(255, 255, 255, 0.8); /* Efeito Vidro Light: Branco translúcido */
+    --bg-input: rgba(255, 255, 255, 0.6); /* Fundo dos campos de digitação */
+    --text-main: #1a1a2e; /* Cor do texto principal (quase preto) */
+    --text-muted: #555770; /* Cor para textos secundários (cinza) */
+    --border-color: rgba(4, 4, 5, 0.12); /* Cor das bordas sutis */
     
-    --primary: #007bff;
-    --primary-hover: #0056b3;
-    --primary-glow: rgba(0, 123, 255, 0.25);
+    /* --- Cores de Destaque (Identidade Visual) --- */
+    --primary: #007bff; /* Azul padrão GGMAX */
+    --primary-hover: #0056b3; /* Azul escuro para hover em botões */
+    --primary-glow: rgba(0, 123, 255, 0.25); /* Brilho neon azul */
     
-    --secondary: #28a745;
-    --danger: #dc3545;
-    --warning: #f19304;
-    --cost-color: #adb5bd;
+    /* --- Cores de Feedback e Status --- */
+    --secondary: #28a745; /* Verde para sucesso/lucro */
+    --danger: #dc3545; /* Vermelho para taxas/avisos */
+    --warning: #f19304; /* Laranja para alertas/popular */
+    --cost-color: #adb5bd; /* Cinza para custos */
     
-    --radius: 12px;
-    --shadow: 0 8px 32px rgba(0, 60, 150, 0.12);
-    --font-family: 'Poppins', sans-serif;
+    /* --- Geometria e Sombras --- */
+    --radius: 12px; /* Arredondamento padrão dos cantos */
+    --shadow: 0 8px 32px rgba(0, 60, 150, 0.12); /* Sombra suave de profundidade */
+    --font-family: 'Poppins', sans-serif; /* Fonte moderna do Google Fonts */
 
-    --badge-purple: #8b5cf6;
-    --diamond-cyan: #06b6d4;
+    /* --- Cores Específicas de Planos --- */
+    --badge-purple: #8b5cf6; /* Roxo para a tag "Popular" */
+    --diamond-cyan: #06b6d4; /* Ciano para o plano Diamante */
 }
 
+/* --- Configurações do Modo Escuro (Dark Mode) --- */
 html.dark {
-    --bg-body: #0a1628;
-    --bg-card: rgba(17, 29, 51, 0.65);
-    --bg-input: rgba(13, 26, 45, 0.5);
-    --text-main: #f0f4fc;
-    --text-muted: #8ea4c4;
-    --border-color: rgba(120, 170, 255, 0.15);
-    --primary-glow: rgba(0, 123, 255, 0.4);
-    --shadow: 0 10px 40px rgba(0, 20, 80, 0.5);
+    --bg-body: #0a1628; /* Fundo azul marinho profundo */
+    --bg-card: rgba(17, 29, 51, 0.65); /* Card escuro semitransparente */
+    --bg-input: rgba(13, 26, 45, 0.5); /* Inputs ainda mais escuros */
+    --text-main: #f0f4fc; /* Texto quase branco para contraste */
+    --text-muted: #8ea4c4; /* Texto cinza azulado */
+    --border-color: rgba(120, 170, 255, 0.15); /* Bordas que brilham levemente */
+    --primary-glow: rgba(0, 123, 255, 0.4); 
+    --shadow: 0 10px 40px rgba(0, 20, 80, 0.5); /* Sombra mais pesada para o dark */
     --cost-color: #3a4f6e;
 }
 
+/* --- Reset Global e Configurações de Base --- */
 * {
     margin: 0;
     padding: 0;
@@ -44,6 +57,7 @@ html.dark {
     scroll-behavior: smooth;
 }
 
+/* --- Personalização da Barra de Rolagem (Scrollbar) --- */
 ::-webkit-scrollbar {
     width: 5px;
     height: 6px;
@@ -58,6 +72,7 @@ html.dark {
     border-radius: 10px;
 }
 
+/* --- Estilos do Corpo da Página (Layout Principal) --- */
 body {
     background: var(--bg-body);
     color: var(--text-main);
@@ -82,19 +97,20 @@ html.light body {
     background: linear-gradient(135deg, #dce8fc 0%, #e8f0fe 30%, #c9dcf7 60%, #e8f0fe 100%);
 }
 
+/* --- Container Principal com Efeito Glassmorphism (Vidro Fosco) --- */
 .container {
     width: 100%;
     max-width: 480px;
     margin: auto;
     background-color: var(--bg-card);
-    backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px); /* O "Blur" que cria o efeito de vidro */
     -webkit-backdrop-filter: blur(20px);
     padding: 2rem;
     border-radius: var(--radius);
     border: 1px solid var(--border-color);
     box-shadow: var(--shadow);
     position: relative;
-    overflow: hidden;
+    overflow: hidden; /* Garante que elementos filhos não saiam do card arrodonado */
     transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -110,6 +126,7 @@ html.light body {
     z-index: 5;
 }
 
+/* --- Cabeçalho (Logo e Título) --- */
 header {
     text-align: center;
     margin-bottom: 2rem;
@@ -119,6 +136,7 @@ header {
     animation-delay: 0.1s;
 }
 
+/* --- Controles do cabeçalho (Botão de Tema) --- */
 .header-controls {
     position: absolute;
     top: -10px;
@@ -127,13 +145,14 @@ header {
     gap: 8px;
 }
 
+/* --- Estilos de Icones e Botões de Ação (Topo) --- */
 .icon-btn {
     background: transparent;
     border: 1px solid var(--border-color);
     color: var(--text-muted);
     width: 32px;
     height: 32px;
-    border-radius: 50%;
+    border-radius: 50%; /* Faz o botão ser um círculo perfeito */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -146,6 +165,7 @@ header {
     border-color: var(--text-main);
 }
 
+/* --- Logo do Aplicativo (Centralizada e Redonda) --- */
 .app-logo {
     width: 80px;
     height: 80px;
@@ -157,6 +177,7 @@ header {
     box-shadow: 0 0 0 2px var(--border-color);
 }
 
+/* --- Título Principal do Aplicativo --- */
 .app-title {
     font-size: 13px;
     font-weight: 700;
@@ -164,6 +185,7 @@ header {
     letter-spacing: 1px;
 }
 
+/* --- Alternador de Modo (Layout de Exibição) --- */
 .mode-toggle {
     display: flex;
     background: var(--bg-input);
@@ -192,6 +214,7 @@ header {
     color: white;
 }
 
+/* --- Grades de Entrada (Grid de Inputs) --- */
 .input-row {
     display: grid;
     grid-template-columns: 2fr 1fr;
@@ -202,6 +225,7 @@ header {
     animation-delay: 0.2s;
 }
 
+/* --- Rótulos e Tooltips de Informação --- */
 label {
     display: flex;
     align-items: center;
@@ -231,10 +255,11 @@ label {
     position: relative;
 }
 
+/* --- Estilização de Campos de Entrada (Inputs e Selects) --- */
 input,
 select {
     width: 100%;
-    height: 48px;
+    height: 48px; /* Altura confortável para toque no celular */
     background: var(--bg-input);
     border: 1px solid var(--border-color);
     border-radius: 8px;
@@ -242,7 +267,7 @@ select {
     font-size: 1rem;
     font-weight: 600;
     padding: 0 14px;
-    outline: none;
+    outline: none; /* Remove a borda azul padrão dos navegadores */
     transition: 0.2s;
 }
 
@@ -267,6 +292,7 @@ select:focus {
     pointer-events: none;
 }
 
+/* --- Seção de Seleção de Planos (Cards 3D) --- */
 .plans-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -289,6 +315,7 @@ select:focus {
     position: relative;
 }
 
+/* --- Card Individual de cada Plano (Prata, Ouro, Diamante) --- */
 .plan-card {
     background: var(--bg-input);
     border: 1px solid var(--border-color);
@@ -302,7 +329,7 @@ select:focus {
     position: relative;
     min-height: 110px;
     width: 100%;
-    transform-style: preserve-3d;
+    transform-style: preserve-3d; /* Necessário para o efeito "Tilt" 3D */
 }
 
 .plan-icon {
@@ -351,10 +378,11 @@ select:focus {
     color: var(--active-color, var(--primary));
 }
 
-/* Base colors for plans */
-.plan-option[data-plan="prata"] { --plan-color: #adb5bd; }
-.plan-option[data-plan="ouro"] { --plan-color: #f19304; }
-.plan-option[data-plan="diamante"] { --plan-color: var(--diamond-cyan); }
+/* --- Cores Base para as Variáveis dos Planos --- */
+/* --- Cores Base para as Variáveis dos Planos --- */
+.plan-option[data-plan="prata"] { --plan-color: #adb5bd; } /* Cor Prata (Cinza) */
+.plan-option[data-plan="ouro"] { --plan-color: #f19304; } /* Cor Ouro (Laranja/Dourado) */
+.plan-option[data-plan="diamante"] { --plan-color: var(--diamond-cyan); } /* Cor Diamante (Ciano) */
 
 .container::before {
     content: '';
@@ -362,9 +390,9 @@ select:focus {
     top: 0;
     left: 0;
     width: 100%;
-    height: 4px;
+    height: 4px; /* A linha colorida no topo do card */
     background: var(--active-color, var(--primary));
-    box-shadow: 0 0 20px var(--active-color, var(--primary));
+    box-shadow: 0 0 20px var(--active-color, var(--primary)); /* Efeito Neon */
     z-index: 5;
     transition: background 0.4s ease, box-shadow 0.4s ease;
 }
@@ -396,6 +424,7 @@ select:focus {
     filter: drop-shadow(0 0 5px var(--diamond-cyan));
 }
 
+/* --- Seção de Resultados (Calculados) --- */
 .results-box {
     background: var(--bg-input);
     border: 1px solid var(--border-color);
@@ -408,17 +437,18 @@ select:focus {
 }
 
 .result-row {
-    display: flex;
-    justify-content: space-between;
+    display: flex; /* Alinha texto e valor na mesma linha */
+    justify-content: space-between; /* Texto na esquerda, preço na direita */
     align-items: center;
     margin-bottom: 12px;
     font-size: 0.9rem;
 }
 
+/* --- Linha de Resultado em Destaque (Valor a Receber) --- */
 .result-row.total {
     margin-top: 15px;
     padding-top: 15px;
-    border-top: 1px solid var(--border-color);
+    border-top: 1px solid var(--border-color); /* Linha divisória interna */
     margin-bottom: 0;
 }
 
@@ -431,6 +461,7 @@ select:focus {
     gap: 8px;
 }
 
+/* --- Barramento Visual de Proporções (Custo vs Taxa vs Lucro) --- */
 .progress-bar {
     height: 8px;
     width: 100%;
@@ -441,11 +472,13 @@ select:focus {
     margin-top: 1.5rem;
 }
 
+/* --- Barras Coloridas que mostram as fatias do valor --- */
 .bar-fill {
     height: 100%;
-    transition: width 0.5s;
+    transition: width 0.5s; /* Animação suave quando os valores mudam */
 }
 
+/* --- Layout de Botões de Ação --- */
 .actions-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -453,6 +486,7 @@ select:focus {
     margin-top: 1.5rem;
 }
 
+/* --- Estilos Gerais de Botões --- */
 .btn {
     width: 100%;
     height: 46px;
@@ -464,41 +498,47 @@ select:focus {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 8px; /* Espaço entre o ícone e o texto */
     transition: 0.2s;
-    text-transform: uppercase;
+    text-transform: uppercase; /* Texto sempre em MAIÚSCULO */
 }
 
+/* --- Botão Principal (Preenchido) --- */
 .btn-primary {
     background: var(--primary);
     color: white;
     box-shadow: 0 4px 12px var(--primary-glow);
 }
 
+/* --- Efeito de Levantar ao passar o mouse --- */
 .btn-primary:hover {
     background: var(--primary-hover);
     transform: translateY(-2px);
 }
 
+/* --- Botão Estilo Contorno --- */
 .btn-outline {
     background: transparent;
     border: 1px solid var(--border-color);
     color: var(--text-muted);
 }
 
+/* --- Efeito de "Clique" (Diminuir levemente) --- */
 .btn:active {
     transform: scale(0.96);
 }
 
-/* Animations */
+/* --- Animações e Efeitos Visuais (Keyframes) --- */
+/* --- Definições de Animações (Keyframes) --- */
+/* --- Animações de Entrada (Slide Up + Fade In) --- */
 @keyframes slideUpFade {
     from {
         opacity: 0;
-        transform: translateY(15px);
+        transform: translateY(15px); /* Começa um pouco abaixo */
     }
     to {
         opacity: 1;
-        transform: translateY(0);
+        transform: translateY(0); /* Sobe para a posição normal */
     }
 }
 
@@ -570,6 +610,8 @@ select:focus {
     transform: scale(1);
 }
 
+/* --- Estilos de Modais (Diálogos que sobrepõe a tela) --- */
+/* --- Estilos de Modais (Diálogos) --- */
 .modal {
     border: none;
     padding: 0;
@@ -578,8 +620,8 @@ select:focus {
     max-height: 100%;
     overflow: visible;
     margin: 0;
-    top: 50%;
-    left: 50%;
+    top: 50%; /* Centralização vertical */
+    left: 50%; /* Centralização horizontal */
     transform: translate(-50%, -50%);
 }
 
@@ -588,18 +630,20 @@ select:focus {
     animation: fade 0.2s;
 }
 
+/* --- Fundo de Escurecimento do Modal (Backdrop) --- */
 .modal::backdrop {
-    background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(8px);
+    background: rgba(0, 0, 0, 0.7); /* Preto semitransparente */
+    backdrop-filter: blur(8px); /* Desfoque do fundo ao abrir modal */
     -webkit-backdrop-filter: blur(8px);
     animation: fade 0.2s;
 }
 
+/* --- Conteúdo Interno do Modal --- */
 .modal-content {
     background: var(--bg-card);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    width: calc(100vw - 40px);
+    width: calc(100vw - 40px); /* Ocupa quase toda a largura em telas pequenas */
     max-width: 420px;
     margin: auto;
     padding: 2rem;
@@ -607,8 +651,8 @@ select:focus {
     border: 1px solid var(--border-color);
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
     position: relative;
-    max-height: 90vh;
-    overflow-y: auto;
+    max-height: 90vh; /* Limita a altura para não sumir da tela */
+    overflow-y: auto; /* Permite rolar se o conteúdo for grande */
     color: var(--text-main);
 }
 
@@ -632,18 +676,21 @@ select:focus {
     color: var(--text-main);
 }
 
+/* --- Seções de ferramentas dentro do modal --- */
 .tool-section {
     margin-bottom: 1.5rem;
     padding-bottom: 1.5rem;
-    border-bottom: 1px dashed var(--border-color);
+    border-bottom: 1px dashed var(--border-color); /* Linha tracejada separadora */
 }
 
+/* --- Remove a borda da última seção de ferramenta --- */
 .tool-section:last-child {
     border: none;
     padding-bottom: 0;
     margin-bottom: 0;
 }
 
+/* --- Título de cada ferramenta com ícone --- */
 .tool-title {
     font-size: 1rem;
     font-weight: 700;
@@ -654,6 +701,7 @@ select:focus {
     gap: 8px;
 }
 
+/* --- Placar de resultados da divisão de lucro (Split) --- */
 .split-result {
     display: flex;
     justify-content: space-between;
@@ -669,6 +717,7 @@ select:focus {
    Utility classes (replacing inline styles)
    ========================================================================== */
 
+/* --- Classes Auxiliares de Cores de Texto --- */
 .text-muted {
     color: var(--text-muted);
 }
@@ -690,10 +739,12 @@ select:focus {
     font-weight: 600;
 }
 
+/* --- Layout de Grid em largunra total --- */
 .input-row--full {
     grid-template-columns: 1fr;
 }
 
+/* --- Ícone de copiar valor (ao lado do preço total) --- */
 .icon-btn--copy {
     width: 28px;
     height: 28px;
@@ -702,6 +753,7 @@ select:focus {
     background: var(--bg-body);
 }
 
+/* --- Margem específica para a linha de lucro no card --- */
 .result-row--profit {
     margin-top: 12px;
     margin-bottom: 0;
@@ -715,24 +767,26 @@ select:focus {
     text-align: center;
 }
 
+/* --- Inputs do Split de Sócios (Alinhados Lado a Lado) --- */
 .split-inputs {
     display: flex;
     gap: 10px;
     align-items: center;
 }
 
+/* --- Dica sutil sobre a taxa de saque --- */
 .withdraw-hint {
     color: var(--text-muted);
     display: block;
     margin-top: 5px;
 }
 
+/* --- Esconde Elementos de Suporte (como o Canvas de Print) --- */
 .hidden-canvas {
     display: none;
 }
 
-/* --- History section --- */
-
+/* --- Seção de Histórico de Cálculos Recentes --- */
 .history-header {
     display: flex;
     justify-content: space-between;
@@ -775,8 +829,7 @@ select:focus {
     padding: 10px;
 }
 
-/* --- Footer --- */
-
+/* --- Rodapé do Aplicativo (Notas Legais) --- */
 .app-footer {
     margin-top: 2rem;
     text-align: center;
@@ -784,8 +837,7 @@ select:focus {
     color: var(--text-muted);
 }
 
-/* --- Modal: Deadline --- */
-
+/* --- Configurações do Modal de Prazos --- */
 .modal-field {
     margin-bottom: 1.5rem;
 }
@@ -834,6 +886,7 @@ select:focus {
     }
 }
 
+/* --- Camada de Carregamento (Skeleton Overlay) --- */
 .skeleton-overlay {
     position: absolute;
     inset: 0;
@@ -850,6 +903,7 @@ select:focus {
     opacity: 0;
 }
 
+/* --- Elemento Visual do Carregando (Spinner) --- */
 .loader {
     width: 60px;
     aspect-ratio: 2;
@@ -875,9 +929,10 @@ select:focus {
 }
 
 /* ==========================================================================
-   Responsive Design
+   Design Responsivo (Adaptabilidade de Telas)
    ========================================================================== */
 
+/* --- Design Responsivo (Breakpoints para iPad/Mobile) --- */
 @media (max-width: 768px) {
     .container {
         max-width: 100%;
@@ -983,6 +1038,7 @@ select:focus {
     }
 }
 
+/* --- Ajustes para Celulares Pequenos (iPhone SE/Mini) --- */
 @media (max-width: 360px) {
     body {
         padding: 6px;
@@ -1067,7 +1123,8 @@ select:focus {
     }
 }
 
-/* Safe area for notched devices & Dynamic Island */
+/* --- Suporte a Dynamic Island e Safe Areas (iPhone/iOS) --- */
+/* --- Ajustes para Notch e Dynamic Island (iPhone) --- */
 @supports (padding: max(0px)) {
     body {
         padding-top: max(2rem, env(safe-area-inset-top));
@@ -1087,8 +1144,10 @@ select:focus {
 }
 
 /* Bottom Nav (Mobile) */
+/* --- Barra de Navegação Inferior (Fixa para Mobile) --- */
+/* --- Navegação de Rodapé (Estilo App Mobile) --- */
 .bottom-nav {
-    display: none;
+    display: none; /* Escondida no Desktop por padrão */
     position: fixed;
     bottom: 0;
     left: 0;
@@ -1098,12 +1157,13 @@ select:focus {
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border-top: 1px solid var(--border-color);
-    z-index: 1000;
-    padding-bottom: env(safe-area-inset-bottom);
+    z-index: 1000; /* Garante que fique acima de tudo */
+    padding-bottom: env(safe-area-inset-bottom); /* Evita sobreposição com a barra do iOS */
     justify-content: space-around;
     align-items: center;
 }
 
+/* --- Botões da Barra de Navegação (Ícone + Texto) --- */
 .nav-btn {
     flex: 1;
     display: flex;
@@ -1119,6 +1179,7 @@ select:focus {
     transition: 0.3s;
 }
 
+/* --- Cor do ícone na barra de navegação --- */
 .nav-btn svg {
     stroke: var(--text-muted);
 }
@@ -1138,7 +1199,7 @@ select:focus {
     }
     
     .actions-grid {
-        display: none; /* Hide old desktop buttons on mobile */
+        display: none; /* Esconde os botões originais do desktop no mobile */
     }
     
     body {
@@ -1146,7 +1207,7 @@ select:focus {
     }
 }
 
-/* Toast Notifications */
+/* --- Sistema de Notificações (Toasts) --- */
 .toast-container {
     position: fixed;
     bottom: 20px;
@@ -1191,6 +1252,7 @@ select:focus {
     font-weight: bold;
 }
 
+/* --- Cores vibrantes para cada tipo de Toast (Sucesso, Alerta, Erro) --- */
 .toast-success .toast-icon {
     background: var(--secondary);
     box-shadow: 0 0 10px rgba(40, 167, 69, 0.4);
