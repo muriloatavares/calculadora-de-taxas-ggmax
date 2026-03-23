@@ -67,10 +67,16 @@ window.GGMax.UI = {
         }
         if (this.els.resTotal) {
             this.els.resTotal.textContent = fmt(results.net);
+            this.els.resTotal.classList.remove('pulse-anim');
+            void this.els.resTotal.offsetWidth;
+            this.els.resTotal.classList.add('pulse-anim');
         }
         if (this.els.resProfit) {
             this.els.resProfit.textContent = fmt(results.profit);
             this.els.resProfit.style.color = results.profit < 0 ? 'var(--danger)' : 'var(--secondary)';
+            this.els.resProfit.classList.remove('pulse-anim');
+            void this.els.resProfit.offsetWidth;
+            this.els.resProfit.classList.add('pulse-anim');
         }
         if (this.els.resTaxPerc) {
             this.els.resTaxPerc.textContent = rate.toLocaleString('pt-BR') + '%';
@@ -229,10 +235,11 @@ window.GGMax.UI = {
         setTimeout(function() {
             var sk = document.getElementById('skeleton');
             if (sk) {
-                sk.classList.add('hidden');
-                setTimeout(function() { sk.remove(); }, 500);
+                sk.style.transition = 'opacity 0.4s ease';
+                sk.style.opacity = '0';
+                setTimeout(function() { sk.remove(); }, 400);
             }
-        }, 800);
+        }, 500);
     },
 
     /**
