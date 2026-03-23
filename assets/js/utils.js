@@ -47,6 +47,8 @@ window.GGMax.Utils = {
             e.target.value = (parseInt(cleaned) / 100).toLocaleString('pt-BR', {
                 minimumFractionDigits: 2
             });
+        } else {
+            e.target.value = '';
         }
     }
 };

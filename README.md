@@ -4,7 +4,7 @@ Uma **calculadora de taxas e lucro** de elite, projetada especificamente para ve
 
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Status](https://img.shields.io/badge/status-active-brightgreen)
-![Version](https://img.shields.io/badge/version-1.1.0-blue)
+![Version](https://img.shields.io/badge/version-2.1.0-blue)
 ![PWA](https://img.shields.io/badge/PWA-Online/Offline-orange)
 
 ---

@@ -73,6 +73,11 @@ window.GGMax.UI = {
             btnOpenDeadlinesMobile: document.getElementById('btnOpenDeadlinesMobile'),
             btnOpenToolsMobile: document.getElementById('btnOpenToolsMobile')
         };
+
+        // Adiciona acessibilidade (ARIA live) para leitores de tela
+        if (this.els.resTotal) this.els.resTotal.setAttribute('aria-live', 'polite');
+        if (this.els.resProfit) this.els.resProfit.setAttribute('aria-live', 'polite');
+        if (this.els.resFee) this.els.resFee.setAttribute('aria-live', 'polite');
     },
 
     /**
@@ -314,12 +319,6 @@ window.GGMax.UI = {
             localStorage.setItem('ggmaxTheme', 'dark');
         }
 
-        // Truque visual para garantir que as cores mudem sem falhas no browser
-        document.body.style.opacity = '0.99';
-        setTimeout(function() {
-            document.body.style.opacity = '1';
-        }, 10);
-
         this.updateFavicon();
     },
 
@@ -408,3 +407,77 @@ window.GGMax.UI = {
         }.bind(this));
     }
 };
+
+/**
+ * initTooltips — Tooltip global com position:fixed para escapar de overflow:hidden
+ * Cria um único elemento #tooltip-popup no <body> e o posiciona via JS
+ * acima de cada ícone de interrogação (?) ao hover, focus ou toque.
+ */
+(function initTooltips() {
+    document.addEventListener('DOMContentLoaded', function () {
+        // Cria o elemento de popup uma única vez e adiciona ao body
+        var popup = document.createElement('div');
+        popup.id = 'tooltip-popup';
+        document.body.appendChild(popup);
+
+        var hideTimer = null;
+
+        function showTooltip(icon) {
+            clearTimeout(hideTimer);
+            var text = icon.getAttribute('title') || icon.getAttribute('data-tooltip');
+            if (!text) return;
+
+            popup.textContent = text;
+            popup.classList.add('visible');
+
+            // Posiciona acima do ícone usando coordenadas de viewport (fixed)
+            var rect = icon.getBoundingClientRect();
+            var popupRect = popup.getBoundingClientRect();
+
+            var top = rect.top - popupRect.height - 12;
+            var left = rect.left + rect.width / 2 - popupRect.width / 2;
+
+            // Evita sair da tela pela esquerda ou direita
+            left = Math.max(8, Math.min(left, window.innerWidth - popupRect.width - 8));
+
+            popup.style.top = top + 'px';
+            popup.style.left = left + 'px';
+        }
+
+        function hideTooltip() {
+            hideTimer = setTimeout(function () {
+                popup.classList.remove('visible');
+            }, 80);
+        }
+
+        var icons = document.querySelectorAll('.info-tooltip');
+
+        icons.forEach(function (icon) {
+            // Desktop: hover
+            icon.addEventListener('mouseenter', function () { showTooltip(icon); });
+            icon.addEventListener('mouseleave', hideTooltip);
+
+            // Teclado: focus/blur
+            icon.addEventListener('focus', function () { showTooltip(icon); });
+            icon.addEventListener('blur', hideTooltip);
+
+            // Mobile: toque toggle
+            icon.addEventListener('click', function (e) {
+                e.stopPropagation();
+                if (popup.classList.contains('visible')) {
+                    hideTooltip();
+                } else {
+                    showTooltip(icon);
+                }
+            });
+
+            // Escape fecha
+            icon.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') hideTooltip();
+            });
+        });
+
+        // Clicar fora fecha
+        document.addEventListener('click', hideTooltip);
+    });
+})();

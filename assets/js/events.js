@@ -158,8 +158,8 @@ window.GGMax.Events = {
         });
 
         // --- Máscara de Real nos inputs monetários ---
-        ['inpValue', 'inpCost', 'inpWithdrawFee'].forEach(function(id) {
-            var el = document.getElementById(id);
+        const moneyInputs = [UI.els.val, UI.els.cost, UI.els.tools.withdraw];
+        moneyInputs.forEach(function(el) {
             if (el) {
                 el.addEventListener('input', Utils.formatMoneyInput);
             }

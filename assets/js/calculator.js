@@ -55,8 +55,8 @@ window.GGMax.Calculator = {
     calculateSplit(profit, userPercentage) {
         const userFraction = (userPercentage || 0) / 100;
         return {
-            userAmount: Math.max(0, profit * userFraction),
-            partnerAmount: Math.max(0, profit * (1 - userFraction))
+            userAmount: profit * userFraction,
+            partnerAmount: profit * (1 - userFraction)
         };
     }
 };
