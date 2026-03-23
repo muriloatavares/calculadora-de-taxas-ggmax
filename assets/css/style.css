@@ -4,46 +4,71 @@
    Aqui definimos as cores, espaçamentos e desfoques que compõe o visual.
    -------------------------------------------------------------------
 */
-:root, html.light {
+:root,
+html.light {
     /* --- Cores de Fundo e Texto (Cura de Temas) --- */
     --bg-body: #e8f0fe;
-    --bg-card: rgba(255, 255, 255, 0.8); /* Efeito Vidro Light: Branco translúcido */
-    --bg-input: rgba(255, 255, 255, 0.6); /* Fundo dos campos de digitação */
-    --text-main: #1a1a2e; /* Cor do texto principal (quase preto) */
-    --text-muted: #555770; /* Cor para textos secundários (cinza) */
-    --border-color: rgba(4, 4, 5, 0.12); /* Cor das bordas sutis */
-    
+    --bg-card: rgba(255, 255, 255, 0.8);
+    /* Efeito Vidro Light: Branco translúcido */
+    --bg-input: rgba(255, 255, 255, 0.6);
+    /* Fundo dos campos de digitação */
+    --text-main: #1a1a2e;
+    /* Cor do texto principal (quase preto) */
+    --text-muted: #555770;
+    /* Cor para textos secundários (cinza) */
+    --border-color: rgba(4, 4, 5, 0.12);
+    /* Cor das bordas sutis */
+
     /* --- Cores de Destaque (Identidade Visual) --- */
-    --primary: #007bff; /* Azul padrão GGMAX */
-    --primary-hover: #0056b3; /* Azul escuro para hover em botões */
-    --primary-glow: rgba(0, 123, 255, 0.25); /* Brilho neon azul */
-    
+    --primary: #007bff;
+    /* Azul padrão GGMAX */
+    --primary-hover: #0056b3;
+    /* Azul escuro para hover em botões */
+    --primary-glow: rgba(0, 123, 255, 0.25);
+    /* Brilho neon azul */
+
     /* --- Cores de Feedback e Status --- */
-    --secondary: #28a745; /* Verde para sucesso/lucro */
-    --danger: #dc3545; /* Vermelho para taxas/avisos */
-    --warning: #f19304; /* Laranja para alertas/popular */
-    --cost-color: #adb5bd; /* Cinza para custos */
-    
+    --secondary: #28a745;
+    /* Verde para sucesso/lucro */
+    --danger: #dc3545;
+    /* Vermelho para taxas/avisos */
+    --warning: #f19304;
+    /* Laranja para alertas/popular */
+    --cost-color: #adb5bd;
+    /* Cinza para custos */
+
     /* --- Geometria e Sombras --- */
-    --radius: 12px; /* Arredondamento padrão dos cantos */
-    --shadow: 0 8px 32px rgba(0, 60, 150, 0.12); /* Sombra suave de profundidade */
-    --font-family: 'Poppins', sans-serif; /* Fonte moderna do Google Fonts */
+    --radius: 12px;
+    /* Arredondamento padrão dos cantos */
+    --shadow: 0 8px 32px rgba(0, 60, 150, 0.12);
+    /* Sombra suave de profundidade */
+    --font-family: 'Poppins', sans-serif;
+    /* Fonte moderna do Google Fonts */
 
     /* --- Cores Específicas de Planos --- */
-    --badge-purple: #8b5cf6; /* Roxo para a tag "Popular" */
-    --diamond-cyan: #06b6d4; /* Ciano para o plano Diamante */
+    --badge-purple: #8b5cf6;
+    /* Roxo para a tag "Popular" */
+    --diamond-cyan: #06b6d4;
+    /* Ciano para o plano Diamante */
 }
 
 /* --- Configurações do Modo Escuro (Dark Mode) --- */
 html.dark {
-    --bg-body: #0a1628; /* Fundo azul marinho profundo */
-    --bg-card: rgba(17, 29, 51, 0.65); /* Card escuro semitransparente */
-    --bg-input: rgba(13, 26, 45, 0.5); /* Inputs ainda mais escuros */
-    --text-main: #f0f4fc; /* Texto quase branco para contraste */
-    --text-muted: #8ea4c4; /* Texto cinza azulado */
-    --border-color: rgba(120, 170, 255, 0.15); /* Bordas que brilham levemente */
-    --primary-glow: rgba(0, 123, 255, 0.4); 
-    --shadow: 0 10px 40px rgba(0, 20, 80, 0.5); /* Sombra mais pesada para o dark */
+    --bg-body: #0a1628;
+    /* Fundo azul marinho profundo */
+    --bg-card: rgba(17, 29, 51, 0.65);
+    /* Card escuro semitransparente */
+    --bg-input: rgba(13, 26, 45, 0.5);
+    /* Inputs ainda mais escuros */
+    --text-main: #f0f4fc;
+    /* Texto quase branco para contraste */
+    --text-muted: #8ea4c4;
+    /* Texto cinza azulado */
+    --border-color: rgba(120, 170, 255, 0.15);
+    /* Bordas que brilham levemente */
+    --primary-glow: rgba(0, 123, 255, 0.4);
+    --shadow: 0 10px 40px rgba(0, 20, 80, 0.5);
+    /* Sombra mais pesada para o dark */
     --cost-color: #3a4f6e;
 }
 
@@ -81,7 +106,8 @@ body {
     justify-content: flex-start;
     align-items: center;
     min-height: 100vh;
-    min-height: 100dvh; /* Evita quebra da tela pelo Safari Toolbar no iOS */
+    min-height: 100dvh;
+    /* Evita quebra da tela pelo Safari Toolbar no iOS */
     padding: 2rem 1rem;
     transition: background 0.3s ease, color 0.3s ease;
     -webkit-font-smoothing: antialiased;
@@ -103,14 +129,16 @@ html.light body {
     max-width: 480px;
     margin: auto;
     background-color: var(--bg-card);
-    backdrop-filter: blur(20px); /* O "Blur" que cria o efeito de vidro */
+    backdrop-filter: blur(20px);
+    /* O "Blur" que cria o efeito de vidro */
     -webkit-backdrop-filter: blur(20px);
     padding: 2rem;
     border-radius: var(--radius);
     border: 1px solid var(--border-color);
     box-shadow: var(--shadow);
     position: relative;
-    overflow: hidden; /* Garante que elementos filhos não saiam do card arrodonado */
+    overflow: hidden;
+    /* Garante que elementos filhos não saiam do card arrodonado */
     transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -152,7 +180,8 @@ header {
     color: var(--text-muted);
     width: 32px;
     height: 32px;
-    border-radius: 50%; /* Faz o botão ser um círculo perfeito */
+    border-radius: 50%;
+    /* Faz o botão ser um círculo perfeito */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -259,7 +288,8 @@ label {
 input,
 select {
     width: 100%;
-    height: 48px; /* Altura confortável para toque no celular */
+    height: 48px;
+    /* Altura confortável para toque no celular */
     background: var(--bg-input);
     border: 1px solid var(--border-color);
     border-radius: 8px;
@@ -267,7 +297,8 @@ select {
     font-size: 1rem;
     font-weight: 600;
     padding: 0 14px;
-    outline: none; /* Remove a borda azul padrão dos navegadores */
+    outline: none;
+    /* Remove a borda azul padrão dos navegadores */
     transition: 0.2s;
 }
 
@@ -329,7 +360,8 @@ select:focus {
     position: relative;
     min-height: 110px;
     width: 100%;
-    transform-style: preserve-3d; /* Necessário para o efeito "Tilt" 3D */
+    transform-style: preserve-3d;
+    /* Necessário para o efeito "Tilt" 3D */
 }
 
 .plan-icon {
@@ -362,27 +394,38 @@ select:focus {
     transform: translateY(-2px);
 }
 
-.plan-option input:checked + .plan-card {
+.plan-option input:checked+.plan-card {
     border-color: var(--active-color, var(--primary));
     background: color-mix(in srgb, var(--active-color, var(--primary)) 10%, transparent);
     box-shadow: 0 0 20px color-mix(in srgb, var(--active-color, var(--primary)) 25%, transparent),
-                inset 0 0 0 1px var(--active-color, var(--primary));
+        inset 0 0 0 1px var(--active-color, var(--primary));
 }
 
-.plan-option input:checked + .plan-card .plan-icon {
+.plan-option input:checked+.plan-card .plan-icon {
     fill: var(--active-color, var(--primary));
     filter: drop-shadow(0 0 8px var(--active-color, var(--primary)));
 }
 
-.plan-option input:checked + .plan-card .plan-name {
+.plan-option input:checked+.plan-card .plan-name {
     color: var(--active-color, var(--primary));
 }
 
 /* --- Cores Base para as Variáveis dos Planos --- */
-/* --- Cores Base para as Variáveis dos Planos --- */
-.plan-option[data-plan="prata"] { --plan-color: #adb5bd; } /* Cor Prata (Cinza) */
-.plan-option[data-plan="ouro"] { --plan-color: #f19304; } /* Cor Ouro (Laranja/Dourado) */
-.plan-option[data-plan="diamante"] { --plan-color: var(--diamond-cyan); } /* Cor Diamante (Ciano) */
+.plan-option[data-plan="prata"] {
+    --plan-color: #adb5bd;
+}
+
+/* Cor Prata (Cinza) */
+.plan-option[data-plan="ouro"] {
+    --plan-color: #f19304;
+}
+
+/* Cor Ouro (Laranja/Dourado) */
+.plan-option[data-plan="diamante"] {
+    --plan-color: var(--diamond-cyan);
+}
+
+/* Cor Diamante (Ciano) */
 
 .container::before {
     content: '';
@@ -390,9 +433,11 @@ select:focus {
     top: 0;
     left: 0;
     width: 100%;
-    height: 4px; /* A linha colorida no topo do card */
+    height: 4px;
+    /* A linha colorida no topo do card */
     background: var(--active-color, var(--primary));
-    box-shadow: 0 0 20px var(--active-color, var(--primary)); /* Efeito Neon */
+    box-shadow: 0 0 20px var(--active-color, var(--primary));
+    /* Efeito Neon */
     z-index: 5;
     transition: background 0.4s ease, box-shadow 0.4s ease;
 }
@@ -415,12 +460,12 @@ select:focus {
     z-index: 10;
 }
 
-.plan-option input[value="12.99"]:checked + .plan-card {
+.plan-option input[value="12.99"]:checked+.plan-card {
     border-color: var(--diamond-cyan);
     box-shadow: 0 0 15px rgba(6, 182, 212, 0.2), inset 0 0 0 1px var(--diamond-cyan);
 }
 
-.plan-option input[value="12.99"]:checked + .plan-card .plan-icon {
+.plan-option input[value="12.99"]:checked+.plan-card .plan-icon {
     filter: drop-shadow(0 0 5px var(--diamond-cyan));
 }
 
@@ -437,8 +482,10 @@ select:focus {
 }
 
 .result-row {
-    display: flex; /* Alinha texto e valor na mesma linha */
-    justify-content: space-between; /* Texto na esquerda, preço na direita */
+    display: flex;
+    /* Alinha texto e valor na mesma linha */
+    justify-content: space-between;
+    /* Texto na esquerda, preço na direita */
     align-items: center;
     margin-bottom: 12px;
     font-size: 0.9rem;
@@ -448,7 +495,8 @@ select:focus {
 .result-row.total {
     margin-top: 15px;
     padding-top: 15px;
-    border-top: 1px solid var(--border-color); /* Linha divisória interna */
+    border-top: 1px solid var(--border-color);
+    /* Linha divisória interna */
     margin-bottom: 0;
 }
 
@@ -475,7 +523,8 @@ select:focus {
 /* --- Barras Coloridas que mostram as fatias do valor --- */
 .bar-fill {
     height: 100%;
-    transition: width 0.5s; /* Animação suave quando os valores mudam */
+    transition: width 0.5s;
+    /* Animação suave quando os valores mudam */
 }
 
 /* --- Layout de Botões de Ação --- */
@@ -498,9 +547,11 @@ select:focus {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px; /* Espaço entre o ícone e o texto */
+    gap: 8px;
+    /* Espaço entre o ícone e o texto */
     transition: 0.2s;
-    text-transform: uppercase; /* Texto sempre em MAIÚSCULO */
+    text-transform: uppercase;
+    /* Texto sempre em MAIÚSCULO */
 }
 
 /* --- Botão Principal (Preenchido) --- */
@@ -534,18 +585,30 @@ select:focus {
 @keyframes slideUpFade {
     from {
         opacity: 0;
-        transform: translateY(15px); /* Começa um pouco abaixo */
+        transform: translateY(15px);
+        /* Começa um pouco abaixo */
     }
+
     to {
         opacity: 1;
-        transform: translateY(0); /* Sobe para a posição normal */
+        transform: translateY(0);
+        /* Sobe para a posição normal */
     }
 }
 
 @keyframes pulseGlow {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.02); text-shadow: 0 0 10px var(--primary-glow); }
-    100% { transform: scale(1); }
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.02);
+        text-shadow: 0 0 10px var(--primary-glow);
+    }
+
+    100% {
+        transform: scale(1);
+    }
 }
 
 .pulse-anim {
@@ -600,13 +663,13 @@ select:focus {
     transition: all 0.2s;
 }
 
-.custom-checkbox-input:checked ~ .custom-checkbox-design {
+.custom-checkbox-input:checked~.custom-checkbox-design {
     background-color: var(--primary);
     border-color: var(--primary);
     box-shadow: 0 0 10px var(--primary-glow);
 }
 
-.custom-checkbox-input:checked ~ .custom-checkbox-design svg {
+.custom-checkbox-input:checked~.custom-checkbox-design svg {
     transform: scale(1);
 }
 
@@ -620,8 +683,10 @@ select:focus {
     max-height: 100%;
     overflow: visible;
     margin: 0;
-    top: 50%; /* Centralização vertical */
-    left: 50%; /* Centralização horizontal */
+    top: 50%;
+    /* Centralização vertical */
+    left: 50%;
+    /* Centralização horizontal */
     transform: translate(-50%, -50%);
 }
 
@@ -632,8 +697,10 @@ select:focus {
 
 /* --- Fundo de Escurecimento do Modal (Backdrop) --- */
 .modal::backdrop {
-    background: rgba(0, 0, 0, 0.7); /* Preto semitransparente */
-    backdrop-filter: blur(8px); /* Desfoque do fundo ao abrir modal */
+    background: rgba(0, 0, 0, 0.7);
+    /* Preto semitransparente */
+    backdrop-filter: blur(8px);
+    /* Desfoque do fundo ao abrir modal */
     -webkit-backdrop-filter: blur(8px);
     animation: fade 0.2s;
 }
@@ -643,7 +710,8 @@ select:focus {
     background: var(--bg-card);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    width: calc(100vw - 40px); /* Ocupa quase toda a largura em telas pequenas */
+    width: calc(100vw - 40px);
+    /* Ocupa quase toda a largura em telas pequenas */
     max-width: 420px;
     margin: auto;
     padding: 2rem;
@@ -651,8 +719,10 @@ select:focus {
     border: 1px solid var(--border-color);
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
     position: relative;
-    max-height: 90vh; /* Limita a altura para não sumir da tela */
-    overflow-y: auto; /* Permite rolar se o conteúdo for grande */
+    max-height: 90vh;
+    /* Limita a altura para não sumir da tela */
+    overflow-y: auto;
+    /* Permite rolar se o conteúdo for grande */
     color: var(--text-main);
 }
 
@@ -680,7 +750,8 @@ select:focus {
 .tool-section {
     margin-bottom: 1.5rem;
     padding-bottom: 1.5rem;
-    border-bottom: 1px dashed var(--border-color); /* Linha tracejada separadora */
+    border-bottom: 1px dashed var(--border-color);
+    /* Linha tracejada separadora */
 }
 
 /* --- Remove a borda da última seção de ferramenta --- */
@@ -880,6 +951,7 @@ select:focus {
         opacity: 0;
         transform: translate(-50%, -50%) scale(0.95);
     }
+
     to {
         opacity: 1;
         transform: translate(-50%, -50%) scale(1);
@@ -917,12 +989,15 @@ select:focus {
     20% {
         background-position: 0% 0%, 50% 50%, 100% 50%;
     }
+
     40% {
         background-position: 0% 100%, 50% 0%, 100% 50%;
     }
+
     60% {
         background-position: 0% 50%, 50% 100%, 100% 0%;
     }
+
     80% {
         background-position: 0% 50%, 50% 50%, 100% 100%;
     }
@@ -1096,7 +1171,8 @@ select:focus {
     input,
     select {
         height: 42px;
-        font-size: 16px; /* Obriga o iPhone a NÃO dar zoom no input */
+        font-size: 16px;
+        /* Obriga o iPhone a NÃO dar zoom no input */
     }
 
     .text-total-val {
@@ -1132,7 +1208,7 @@ select:focus {
         padding-left: max(1rem, env(safe-area-inset-left));
         padding-right: max(1rem, env(safe-area-inset-right));
     }
-    
+
     @media (max-width: 480px) {
         body {
             padding-top: max(10px, env(safe-area-inset-top));
@@ -1147,7 +1223,8 @@ select:focus {
 /* --- Barra de Navegação Inferior (Fixa para Mobile) --- */
 /* --- Navegação de Rodapé (Estilo App Mobile) --- */
 .bottom-nav {
-    display: none; /* Escondida no Desktop por padrão */
+    display: none;
+    /* Escondida no Desktop por padrão */
     position: fixed;
     bottom: 0;
     left: 0;
@@ -1157,8 +1234,10 @@ select:focus {
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border-top: 1px solid var(--border-color);
-    z-index: 1000; /* Garante que fique acima de tudo */
-    padding-bottom: env(safe-area-inset-bottom); /* Evita sobreposição com a barra do iOS */
+    z-index: 1000;
+    /* Garante que fique acima de tudo */
+    padding-bottom: env(safe-area-inset-bottom);
+    /* Evita sobreposição com a barra do iOS */
     justify-content: space-around;
     align-items: center;
 }
@@ -1188,6 +1267,55 @@ select:focus {
     transform: scale(0.9);
     color: var(--active-color, var(--primary));
 }
+/* --- Social Links in Footer --- */
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+.social-links a, .social-links button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--bg-input);
+    border: 1px solid var(--border-color);
+    transition: 0.3s;
+    cursor: pointer;
+    color: var(--text-muted);
+    padding: 0;
+}
+
+.social-links img {
+    width: 20px;
+    height: 20px;
+    filter: grayscale(1) opacity(0.7);
+    transition: 0.3s;
+}
+
+html.dark .social-links img {
+    filter: invert(1) grayscale(1) opacity(0.7);
+}
+
+.social-links a:hover, .social-links button:hover {
+    border-color: var(--primary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px var(--primary-glow);
+}
+
+.social-links a:hover img, .social-links button:hover img {
+    filter: none;
+    opacity: 1;
+}
+
+html.dark .social-links a:hover img, html.dark .social-links button:hover img {
+    filter: invert(1);
+    opacity: 1;
+}
 
 .nav-btn:active svg {
     stroke: var(--active-color, var(--primary));
@@ -1197,11 +1325,12 @@ select:focus {
     .bottom-nav {
         display: flex;
     }
-    
+
     .actions-grid {
-        display: none; /* Esconde os botões originais do desktop no mobile */
+        display: none;
+        /* Esconde os botões originais do desktop no mobile */
     }
-    
+
     body {
         padding-bottom: calc(85px + env(safe-area-inset-bottom));
     }

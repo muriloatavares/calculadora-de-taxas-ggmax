@@ -66,6 +66,7 @@ window.GGMax.UI = {
             btnOpenDeadlines: document.getElementById('btnOpenDeadlines'),
             btnOpenTools: document.getElementById('btnOpenTools'),
             btnTheme: document.getElementById('themeToggle'),
+            btnDiscordCopy: document.getElementById('btnDiscordCopy'),
             historyList: document.getElementById('historyList'),
             
             // Navegação de rodapé (Mobile)

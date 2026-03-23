@@ -171,5 +171,14 @@ window.GGMax.Events = {
                 UI.toggleTheme(app.state.profit);
             });
         }
+
+        // --- Copiar Discord ---
+        if (UI.els.btnDiscordCopy) {
+            UI.els.btnDiscordCopy.addEventListener('click', function() {
+                navigator.clipboard.writeText("muriloatavares_").then(function() {
+                    UI.showToast('Discord copiado: muriloatavares_', 'success');
+                });
+            });
+        }
     }
 };
