@@ -1,6 +1,6 @@
 # 📱 Calculadora de taxas da GGMAX
 
-Uma **calculadora de taxas e lucro** de elite, projetada especificamente para vendedores da plataforma GGMAX. Esta ferramenta não é apenas funcional; ela oferece uma experiência visual premium através de **Glassmorphism**, animações fluidas e suporte total a hardware Apple moderno.
+Uma **calculadora de taxas** de elite, projetada especificamente para vendedores da plataforma GGMAX. Esta ferramenta não é apenas funcional; ela oferece uma experiência visual premium através de **Glassmorphism**, animações fluidas e suporte total a hardware Apple moderno.
 
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Status](https://img.shields.io/badge/status-active-brightgreen)
