@@ -111,6 +111,15 @@ window.GGMax.UI = {
         }
         
         // Exibe a porcentagem do plano selecionado
+        this.updateRate(rate);
+    },
+
+    /**
+     * updateRate — Atualiza apenas o texto da porcentagem da taxa.
+     * 
+     * @param {number} rate — A porcentagem atual da taxa.
+     */
+    updateRate(rate) {
         if (this.els.resTaxPerc) {
             this.els.resTaxPerc.textContent = rate.toLocaleString('pt-BR') + '%';
         }
@@ -234,11 +243,18 @@ window.GGMax.UI = {
 
     /**
      * resetDisplays — Volta os textos de resultados para o zero (R$ 0,00).
+     * 
+     * @param {number} rate — A porcentagem atual para manter o rótulo correto.
      */
-    resetDisplays() {
+    resetDisplays(rate) {
         if (this.els.resFee) this.els.resFee.textContent = 'R$ 0,00';
         if (this.els.resTotal) this.els.resTotal.textContent = 'R$ 0,00';
         if (this.els.resProfit) this.els.resProfit.textContent = 'R$ 0,00';
+        
+        if (rate !== undefined) {
+            this.updateRate(rate);
+        }
+
         if (this.els.bars.fee) {
             this.els.bars.fee.style.width = '0';
             this.els.bars.cost.style.width = '0';

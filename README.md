@@ -1,10 +1,10 @@
-# 📱 Calculadora GGMAX - Premium PWA
+# 📱 Calculadora de taxas da GGMAX
 
 Uma **calculadora de taxas e lucro** de elite, projetada especificamente para vendedores da plataforma GGMAX. Esta ferramenta não é apenas funcional; ela oferece uma experiência visual premium através de **Glassmorphism**, animações fluidas e suporte total a hardware Apple moderno.
 
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Status](https://img.shields.io/badge/status-active-brightgreen)
-![Version](https://img.shields.io/badge/version-2.1.0-blue)
+![Version](https://img.shields.io/badge/version-2.2.0-blue)
 ![PWA](https://img.shields.io/badge/PWA-Online/Offline-orange)
 
 ---
@@ -30,6 +30,22 @@ Uma **calculadora de taxas e lucro** de elite, projetada especificamente para ve
 
 ---
 
+## 🔄 Novidades & Melhorias Reais (v2.2.0)
+
+### 💡 Tooltips de Ajuda Inteligentes
+- **Explicação em Tempo Real**: Adição de ícones de ajuda `(?)` em cada campo da calculadora.
+- **Micro-interações**: Tooltips animados que explicam a lógica por trás das taxas fixas e variáveis da GGMAX.
+- **Acessibilidade**: Suporte total para visualização em dispositivos móveis via toque longo.
+
+### 📉 Taxas Dinâmicas de Alta Precisão
+- **Sincronização com Planos**: A "Taxa de Plataforma" agora é calculada dinamicamente com base no plano selecionado:
+    - **Prata**: 9.99%
+    - **Ouro**: 11.99%
+    - **Diamante**: 12.99%
+- **Correção de Bugs**: Corrigido o erro onde a taxa permanecia estática em 11.99%, garantindo que o lucro líquido seja 100% preciso para todos os níveis de vendedor.
+
+---
+
 ## 🛠️ Arquitetura & Manutenção
 
 O projeto é 100% **Vanilla JS (ES6+)**, sem frameworks pesados, garantindo carregamento instantâneo.
@@ -38,7 +54,7 @@ O projeto é 100% **Vanilla JS (ES6+)**, sem frameworks pesados, garantindo carr
 - **Estrutura Modular**:
     - `utils.js`: Formatação de moeda e máscaras de input.
     - `calculator.js`: O "motor" matemático das taxas GGMAX.
-    - `ui.js`: Gerenciador de DOM, Temas e Animações de Elite.
+    - `ui.js`: Gerenciador de DOM, Temas, Tooltips e Animações de Elite.
     - `events.js`: Centralizador de interações e listeners.
     - `app.js`: Orquestrador de estado global e inicialização.
 

@@ -53,9 +53,9 @@
             // Chama o motor de cálculos matemático
             var results = Calculator.calculate(this.state);
 
-            // Se o valor for zero, limpa as barras visuais
+            // Se o valor for zero, limpa as barras visuais mas mantém a taxa atualizada
             if (this.state.value === 0) {
-                UI.resetDisplays();
+                UI.resetDisplays(this.state.rate);
                 UI.updateFavicon();
                 return;
             }
